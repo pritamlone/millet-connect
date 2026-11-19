@@ -1,0 +1,2468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MilletConnect | Smart Millet Supply Chain Ecosystem (Interactive Preview)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #2D4B37;
+      --primary-light: #4A6B52;
+      --primary-dark: #1A2E21;
+      --secondary: #D97706;
+      --secondary-light: #F59E0B;
+      --accent: #C2410C;
+      --accent-light: #EA580C;
+      --oatmeal: #F5F5F0;
+      --oatmeal-dark: #E5E5DF;
+      --text: #1A2E21;
+      --text-muted: #4A5B50;
+      --white: #FFFFFF;
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --shadow-sm: 0 2px 8px rgba(26, 46, 33, 0.06);
+      --shadow-md: 0 8px 24px rgba(26, 46, 33, 0.08);
+      --shadow-lg: 0 16px 40px rgba(26, 46, 33, 0.12);
+      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-serif: 'Playfair Display', Georgia, serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--oatmeal);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Grainy noise texture */
+    .grainy-bg {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.035;
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+    }
+
+    /* Top Demo Notice Banner */
+    .demo-bar {
+      background: linear-gradient(90deg, #1A2E21 0%, #2D4B37 100%);
+      color: #E8F5ED;
+      font-size: 13px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+      z-index: 1001;
+    }
+    .demo-bar a, .demo-bar button {
+      color: #FBBF24;
+      font-weight: 700;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* Navigation */
+    header {
+      position: sticky;
+      top: 0;
+      background: rgba(245, 245, 240, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(45, 75, 55, 0.1);
+      z-index: 1000;
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--primary);
+      cursor: pointer;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--primary);
+      color: var(--oatmeal);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 10px rgba(45, 75, 55, 0.25);
+    }
+    .brand-text {
+      font-family: var(--font-serif);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .nav-links a:hover {
+      color: var(--primary);
+      background: rgba(45, 75, 55, 0.06);
+    }
+    .nav-links a.active {
+      color: var(--primary-dark);
+      background: rgba(45, 75, 55, 0.12);
+      font-weight: 700;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-btn, .role-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--white);
+      border: 1px solid rgba(45, 75, 55, 0.15);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .lang-btn:hover, .role-badge:hover {
+      border-color: var(--primary);
+      background: rgba(45, 75, 55, 0.04);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: var(--oatmeal);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 24px;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(45, 75, 55, 0.25);
+      transition: all 0.25s ease;
+      text-decoration: none;
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(45, 75, 55, 0.35);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 14px;
+      padding: 10px 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(45, 75, 55, 0.2);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      text-decoration: none;
+    }
+    .btn-secondary:hover {
+      background: rgba(45, 75, 55, 0.05);
+      border-color: var(--primary);
+    }
+
+    /* Page container */
+    main {
+      flex: 1;
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 32px 24px 60px;
+    }
+
+    .page-section {
+      display: none;
+      animation: fadeIn 0.35s ease;
+    }
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Typography */
+    h1, h2, h3, h4 {
+      font-family: var(--font-serif);
+      color: var(--primary-dark);
+    }
+    .text-accent {
+      color: var(--accent);
+    }
+    .text-secondary {
+      color: var(--secondary);
+    }
+
+    /* HERO SECTION */
+    .hero-card {
+      background: linear-gradient(135deg, rgba(45, 75, 55, 0.08) 0%, rgba(217, 119, 6, 0.08) 100%), var(--white);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(45, 75, 55, 0.12);
+      padding: 64px 48px;
+      margin-bottom: 48px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      align-items: center;
+      box-shadow: var(--shadow-sm);
+    }
+    @media (max-width: 900px) {
+      .hero-card { grid-template-columns: 1fr; padding: 36px 24px; }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(217, 119, 6, 0.12);
+      color: var(--secondary);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+    .hero-title {
+      font-size: 52px;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+    .hero-subtitle {
+      font-size: 18px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      max-width: 540px;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-visual {
+      background: var(--primary-dark);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      color: var(--oatmeal);
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+    .hero-stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .hero-stat {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .hero-stat-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: #FBBF24;
+      font-family: var(--font-sans);
+    }
+    .hero-stat-lbl {
+      font-size: 12px;
+      color: rgba(245, 245, 240, 0.7);
+      margin-top: 2px;
+    }
+
+    /* Impact Strip */
+    .impact-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px;
+      margin-bottom: 56px;
+    }
+    .impact-item {
+      background: var(--white);
+      border: 1px solid rgba(45, 75, 55, 0.08);
+      border-radius: var(--radius-md);
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+    .impact-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(45, 75, 55, 0.08);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .impact-num {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+    .impact-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Features Grid */
+    .section-header {
+      text-align: center;
+      max-width: 680px;
+      margin: 0 auto 40px;
+    }
+    .section-header h2 {
+      font-size: 38px;
+      margin-bottom: 12px;
+    }
+    .section-header p {
+      color: var(--text-muted);
+      font-size: 16px;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 64px;
+    }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid rgba(45, 75, 55, 0.08);
+      border-radius: var(--radius-lg);
+      padding: 32px 24px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.25s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(45, 75, 55, 0.2);
+    }
+    .feature-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: var(--primary);
+      color: var(--oatmeal);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* MARKETPLACE VIEW */
+    .market-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 32px;
+      background: var(--white);
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(45, 75, 55, 0.1);
+      box-shadow: var(--shadow-sm);
+    }
+    .search-input-wrap {
+      flex: 1;
+      min-width: 260px;
+      position: relative;
+    }
+    .search-input-wrap input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(45, 75, 55, 0.15);
+      background: var(--oatmeal);
+      font-family: inherit;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-input-wrap input:focus {
+      border-color: var(--primary);
+      background: var(--white);
+    }
+    .search-input-wrap svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .category-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+    .cat-pill {
+      background: var(--white);
+      border: 1px solid rgba(45, 75, 55, 0.15);
+      padding: 8px 18px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .cat-pill:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+    .cat-pill.active {
+      background: var(--primary);
+      color: var(--oatmeal);
+      border-color: var(--primary);
+      box-shadow: 0 4px 10px rgba(45, 75, 55, 0.2);
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+    }
+    .product-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(45, 75, 55, 0.1);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      transition: all 0.25s ease;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    .product-img-box {
+      height: 200px;
+      position: relative;
+      background: #E8ECE9;
+      overflow: hidden;
+    }
+    .product-img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .product-card:hover .product-img-box img {
+      transform: scale(1.05);
+    }
+    .product-badge {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: rgba(26, 46, 33, 0.85);
+      backdrop-filter: blur(4px);
+      color: #FBBF24;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 12px;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .product-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .product-cat {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--secondary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .product-title {
+      font-size: 20px;
+      margin-bottom: 8px;
+      color: var(--primary-dark);
+    }
+    .product-farmer {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .product-stock {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--primary-light);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .product-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 16px;
+      border-top: 1px solid rgba(45, 75, 55, 0.08);
+    }
+    .product-price-val {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+    .product-price-unit {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: normal;
+    }
+
+    /* SELL FORM */
+    .form-box {
+      max-width: 680px;
+      margin: 0 auto;
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(45, 75, 55, 0.12);
+      padding: 40px;
+      box-shadow: var(--shadow-md);
+    }
+    .form-group {
+      margin-bottom: 22px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      margin-bottom: 8px;
+    }
+    .form-control {
+      width: 100%;
+      padding: 13px 16px;
+      border-radius: 12px;
+      border: 1px solid rgba(45, 75, 55, 0.2);
+      background: var(--oatmeal);
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--text);
+      outline: none;
+      transition: all 0.2s;
+    }
+    .form-control:focus {
+      border-color: var(--primary);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(45, 75, 55, 0.12);
+    }
+    .calc-card {
+      background: rgba(45, 75, 55, 0.06);
+      border-radius: 14px;
+      padding: 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+    .calc-label {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 15px;
+    }
+    .calc-val {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--primary-dark);
+    }
+
+    /* BUY CHECKOUT STEPS */
+    .steps-indicator {
+      display: flex;
+      justify-content: center;
+      gap: 36px;
+      margin-bottom: 32px;
+      position: relative;
+    }
+    .step-node {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--oatmeal-dark);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+    }
+    .step-node.active .step-circle {
+      background: var(--primary);
+      color: var(--white);
+    }
+    .step-node.active {
+      color: var(--primary);
+    }
+
+    /* ORDERS & DELIVERY TRACKER */
+    .order-card {
+      background: var(--white);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(45, 75, 55, 0.1);
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(45, 75, 55, 0.08);
+      padding-bottom: 14px;
+    }
+    .order-tag {
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .tag-buy { background: rgba(217, 119, 6, 0.15); color: var(--secondary); }
+    .tag-sell { background: rgba(45, 75, 55, 0.15); color: var(--primary); }
+    
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .status-pending { background: #FEF3C7; color: #92400E; }
+    .status-dispatched { background: #DBEAFE; color: #1E40AF; }
+    .status-delivered { background: #DCFCE7; color: #166534; }
+
+    /* Delivery Progress Track */
+    .delivery-progress {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 24px 0 16px;
+      position: relative;
+    }
+    .delivery-progress::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      height: 4px;
+      background: rgba(45, 75, 55, 0.1);
+      z-index: 1;
+    }
+    .prog-step {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    .prog-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 3px solid rgba(45, 75, 55, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 6px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    .prog-step.done .prog-icon {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+    }
+    .prog-step.current .prog-icon {
+      background: var(--secondary);
+      border-color: var(--secondary);
+      color: var(--white);
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(217, 119, 6, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
+    }
+    .prog-label {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    /* TRACEABILITY */
+    .trace-card {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      border: 1px solid rgba(45, 75, 55, 0.12);
+      box-shadow: var(--shadow-sm);
+    }
+    .trace-timeline {
+      position: relative;
+      padding-left: 36px;
+      margin-top: 32px;
+    }
+    .trace-timeline::before {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 10px;
+      bottom: 20px;
+      width: 3px;
+      background: rgba(45, 75, 55, 0.15);
+    }
+    .trace-step {
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .trace-step-dot {
+      position: absolute;
+      left: -36px;
+      top: 4px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 0 4px var(--oatmeal);
+    }
+
+    /* TOAST NOTIFICATION */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--primary-dark);
+      color: var(--white);
+      padding: 14px 24px;
+      border-radius: 16px;
+      font-size: 14px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 99999;
+    }
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(13, 30, 20, 0.65);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 10000;
+    }
+    .modal-overlay.open {
+      display: flex;
+    }
+    .modal-box {
+      background: var(--white);
+      border-radius: var(--radius-xl);
+      max-width: 600px;
+      width: 100%;
+      padding: 32px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--primary-dark);
+      color: var(--oatmeal);
+      padding: 60px 24px 30px;
+      margin-top: auto;
+    }
+    .footer-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-col h4 {
+      color: #FBBF24;
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+    .footer-col ul li a {
+      color: rgba(245, 245, 240, 0.7);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .footer-col ul li a:hover {
+      color: var(--white);
+    }
+    .footer-bottom {
+      max-width: 1280px;
+      margin: 0 auto;
+      text-align: center;
+      padding-top: 24px;
+      border-top: 1px solid rgba(245, 245, 240, 0.1);
+      font-size: 13px;
+      color: rgba(245, 245, 240, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="grainy-bg"></div>
+
+  <!-- Top Demo Bar with Persona Switcher & Fast Reset -->
+  <div class="demo-bar">
+    <div>
+      🌾 <strong>MilletConnect Standalone Preview</strong> &nbsp;|&nbsp;
+      Role: <strong id="currentPersonaName" style="color:#FBBF24;">Ramesh Patil (Farmer)</strong>
+    </div>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <button onclick="openRoleModal()">Switch Role ▾</button>
+      <span>•</span>
+      <button onclick="resetDemoData()">Reset Demo Data</button>
+    </div>
+  </div>
+
+  <!-- Header & Navigation -->
+  <header>
+    <div class="nav-container">
+      <div class="brand" onclick="navigate('home')">
+        <div class="brand-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </div>
+        <span class="brand-text">MilletConnect</span>
+      </div>
+
+      <nav>
+        <ul class="nav-links">
+          <li><a id="nav-home" class="active" onclick="navigate('home')">Home</a></li>
+          <li><a id="nav-marketplace" onclick="navigate('marketplace')">Marketplace</a></li>
+          <li><a id="nav-sell" onclick="navigate('sell')">Sell Produce</a></li>
+          <li><a id="nav-orders" onclick="navigate('orders')">Orders & Delivery</a></li>
+          <li><a id="nav-traceability" onclick="navigate('traceability')">Traceability</a></li>
+          <li><a id="nav-awareness" onclick="navigate('awareness')">Awareness Hub</a></li>
+        </ul>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="lang-btn" onclick="cycleLanguage()" id="langBtn" title="Switch Language">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          <span id="langLabel">EN</span>
+        </button>
+
+        <button class="btn-primary" onclick="navigate('dashboard')" id="dashboardBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+          Dashboard
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main>
+
+    <!-- ================= 1. HOME SECTION ================= -->
+    <section id="page-home" class="page-section active">
+      <div class="hero-card">
+        <div>
+          <div class="hero-badge">
+            <span>✨</span> <span id="heroBadgeText">National Smart Millet Ecosystem</span>
+          </div>
+          <h1 class="hero-title" id="heroTitle">Connecting India's Millet Farmers with Direct Buyers</h1>
+          <p class="hero-subtitle" id="heroSubtitle">
+            A unified digital value chain platform providing transparent pricing, farm-to-table traceability, seamless logistics tracking, and verified regional marketplace discovery.
+          </p>
+          <div class="hero-ctas">
+            <button class="btn-primary" onclick="navigate('marketplace')">
+              Explore Marketplace
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </button>
+            <button class="btn-secondary" onclick="navigate('sell')">
+              Sell Your Millets
+            </button>
+            <button class="btn-secondary" onclick="navigate('traceability')">
+              Verify QR Traceability
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:14px;">
+            <div style="font-weight:700; font-size:16px;">🌱 Live Ecosystem Pulse</div>
+            <span style="font-size:12px; color:#34D399; font-weight:700;">● Active</span>
+          </div>
+
+          <div class="hero-stat-grid">
+            <div class="hero-stat">
+              <div class="hero-stat-val">12,450+</div>
+              <div class="hero-stat-lbl">Farmers Onboarded</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">₹ 4.8 Cr</div>
+              <div class="hero-stat-lbl">Direct Farmer Value Traded</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">3,890 MT</div>
+              <div class="hero-stat-lbl">Millets Verified</div>
+            </div>
+            <div class="hero-stat">
+              <div class="hero-stat-val">99.4%</div>
+              <div class="hero-stat-lbl">Traceability Accuracy</div>
+            </div>
+          </div>
+
+          <div style="margin-top:20px; font-size:13px; color:rgba(255,255,255,0.7); background:rgba(255,255,255,0.06); padding:12px 16px; border-radius:12px;">
+            🌾 <strong>Recent Trade:</strong> Ramesh Patil sold 250 kg Pearl Millet to Annapurna SHG (Nanded).
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Metrics Strip -->
+      <div class="impact-strip">
+        <div class="impact-item">
+          <div class="impact-icon">🌾</div>
+          <div>
+            <div class="impact-num">8+ Millets</div>
+            <div class="impact-desc">Bajra, Ragi, Kangni, Jowar & more</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-icon">🚚</div>
+          <div>
+            <div class="impact-num">Live Tracking</div>
+            <div class="impact-desc">Farm-to-hub delivery coordination</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-icon">🔍</div>
+          <div>
+            <div class="impact-num">100% Traceable</div>
+            <div class="impact-desc">Lot-wise soil & harvest certificates</div>
+          </div>
+        </div>
+        <div class="impact-item">
+          <div class="impact-icon">🇮🇳</div>
+          <div>
+            <div class="impact-num">Multilingual</div>
+            <div class="impact-desc">22 regional language interfaces</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Core Features -->
+      <div class="section-header">
+        <h2>Why MilletConnect?</h2>
+        <p>Bridging traditional agricultural gaps through end-to-end digital transparency.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">👨‍🌾</div>
+          <h3>Direct Producer Connect</h3>
+          <p>Eliminate unnecessary middleman margins. Primary producers and SHGs list harvest lots directly to institutional and retail buyers.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-box">📦</div>
+          <h3>Stepped Order Checkout</h3>
+          <p>Transparent buying workflow with dynamic volume deductions, real-time stock protection, and flexible payment options (COD or UPI).</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-box">🛡️</div>
+          <h3>Certified Origin Traceability</h3>
+          <p>Every bag features an immutable batch identifier detailing farmer identity, soil test score, harvest date, and lab quality metrics.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-box">🚛</div>
+          <h3>Logistics & Delivery Dashboard</h3>
+          <p>Track shipment milestones from field pickup, mandi processing, transit consolidation, to final doorstep arrival.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 2. MARKETPLACE SECTION ================= -->
+    <section id="page-marketplace" class="page-section">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:28px;">
+        <div>
+          <h1 style="font-size:42px; margin-bottom:6px;">Millet Marketplace</h1>
+          <p style="color:var(--text-muted);">Sourced directly from verified farmers across India with organic verification.</p>
+        </div>
+        <button class="btn-primary" onclick="navigate('sell')">
+          + Add Sell Listing
+        </button>
+      </div>
+
+      <!-- Filter / Search Bar -->
+      <div class="market-filter-bar">
+        <div class="search-input-wrap">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="marketSearch" placeholder="Search by millet type, farmer name, or location..." oninput="filterProducts()">
+        </div>
+        <select class="form-control" style="width:200px;" id="priceSort" onchange="filterProducts()">
+          <option value="featured">Featured First</option>
+          <option value="price-asc">Price: Low to High</option>
+          <option value="price-desc">Price: High to Low</option>
+          <option value="volume">Highest Available Volume</option>
+        </select>
+      </div>
+
+      <!-- Categories Pills -->
+      <div class="category-pills">
+        <div class="cat-pill active" onclick="setCategory('All', this)">All Grains</div>
+        <div class="cat-pill" onclick="setCategory('Raw Millets', this)">Raw Millets</div>
+        <div class="cat-pill" onclick="setCategory('Processed Flour', this)">Flour / Atta</div>
+        <div class="cat-pill" onclick="setCategory('Millet Snacks', this)">Value-Added Snacks</div>
+        <div class="cat-pill" onclick="setCategory('Organic', this)">100% Certified Organic</div>
+      </div>
+
+      <!-- Product Cards Container -->
+      <div class="products-grid" id="productsGrid">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ================= 3. SELL PRODUCE SECTION ================= -->
+    <section id="page-sell" class="page-section">
+      <div class="form-box">
+        <div style="text-align:center; margin-bottom:28px;">
+          <h1 style="font-size:36px; margin-bottom:8px;">Place Your Sell Order</h1>
+          <p style="color:var(--text-muted); font-size:15px;">List your harvest lots for sale on the national millet marketplace.</p>
+        </div>
+
+        <form id="sellForm" onsubmit="handleSellSubmit(event)">
+          <div class="form-group">
+            <label for="sellMilletType">Millet Variety</label>
+            <select id="sellMilletType" class="form-control" required onchange="handleMilletTypeChange()">
+              <option value="Pearl Millet (Bajra)">Pearl Millet (Bajra)</option>
+              <option value="Finger Millet (Ragi)">Finger Millet (Ragi)</option>
+              <option value="Foxtail Millet (Kangni)">Foxtail Millet (Kangni)</option>
+              <option value="Barnyard Millet (Sanwa)">Barnyard Millet (Sanwa)</option>
+              <option value="Kodo Millet (Kodua)">Kodo Millet (Kodua)</option>
+              <option value="Little Millet (Kutki)">Little Millet (Kutki)</option>
+              <option value="Sorghum (Jowar)">Sorghum (Jowar)</option>
+              <option value="Browntop Millet (Korale)">Browntop Millet (Korale)</option>
+              <option value="Other">Other (Custom Grain)</option>
+            </select>
+          </div>
+
+          <div class="form-group" id="customMilletWrap" style="display:none;">
+            <label for="customMilletName">Specify Millet Name</label>
+            <input type="text" id="customMilletName" class="form-control" placeholder="e.g. Organic Little Ragi Special">
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label for="sellVolume">Volume Available (kg)</label>
+              <input type="number" id="sellVolume" class="form-control" placeholder="e.g. 500" min="1" step="0.5" required oninput="calculateSellTotal()">
+            </div>
+
+            <div class="form-group">
+              <label for="sellPrice">Price per kg (₹)</label>
+              <input type="number" id="sellPrice" class="form-control" placeholder="e.g. 48" min="1" step="0.5" required oninput="calculateSellTotal()">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="sellLocation">Farm Location / Mandi</label>
+            <input type="text" id="sellLocation" class="form-control" placeholder="e.g. Nanded, Maharashtra" required value="Nanded, Maharashtra">
+          </div>
+
+          <div class="calc-card">
+            <div>
+              <div class="calc-label">Calculated Lot Gross Value</div>
+              <div style="font-size:12px; color:var(--text-muted);">Direct credit upon delivery confirmation</div>
+            </div>
+            <div class="calc-val" id="sellTotalDisplay">₹0.00</div>
+          </div>
+
+          <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:16px; font-size:16px;">
+            Publish Sell Listing to Marketplace →
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= 4. BUY & CHECKOUT SECTION ================= -->
+    <section id="page-buy" class="page-section">
+      <div class="form-box" style="max-width:760px;">
+        <!-- Stepper -->
+        <div class="steps-indicator">
+          <div class="step-node active" id="bstep-1">
+            <div class="step-circle">1</div>
+            <span>Select Quantity</span>
+          </div>
+          <div class="step-node" id="bstep-2">
+            <div class="step-circle">2</div>
+            <span>Delivery Address</span>
+          </div>
+          <div class="step-node" id="bstep-3">
+            <div class="step-circle">3</div>
+            <span>Payment & Confirm</span>
+          </div>
+        </div>
+
+        <!-- Selected Product Summary Header -->
+        <div id="buyProductHeader" style="background:var(--oatmeal); border-radius:16px; padding:16px 20px; display:flex; align-items:center; gap:16px; margin-bottom:28px;">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Step 1: Quantity -->
+        <div id="buyStep1">
+          <div class="form-group">
+            <label for="buyQty">Purchase Volume (kg)</label>
+            <input type="number" id="buyQty" class="form-control" min="1" value="25" oninput="calculateBuyTotal()">
+            <div id="buyMaxStockInfo" style="font-size:12px; color:var(--text-muted); margin-top:4px;"></div>
+          </div>
+
+          <div class="calc-card">
+            <div>
+              <div class="calc-label">Total Product Amount</div>
+              <div style="font-size:12px; color:var(--text-muted);">Exclusive of delivery / taxes</div>
+            </div>
+            <div class="calc-val" id="buyTotalDisplay">₹0.00</div>
+          </div>
+
+          <div style="display:flex; justify-content:flex-end;">
+            <button class="btn-primary" onclick="goToBuyStep(2)">
+              Proceed to Delivery Address →
+            </button>
+          </div>
+        </div>
+
+        <!-- Step 2: Address -->
+        <div id="buyStep2" style="display:none;">
+          <div class="form-group">
+            <label for="buyerName">Recipient Full Name</label>
+            <input type="text" id="buyerName" class="form-control" value="Savita Agro Traders" required>
+          </div>
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+            <div class="form-group">
+              <label for="buyerPhone">Contact Phone Number</label>
+              <input type="tel" id="buyerPhone" class="form-control" value="+91 98220 12345" required>
+            </div>
+            <div class="form-group">
+              <label for="buyerPin">Pincode</label>
+              <input type="text" id="buyerPin" class="form-control" value="431602" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="buyerAddress">Complete Delivery Address</label>
+            <textarea id="buyerAddress" class="form-control" rows="3" placeholder="Plot No, Street, Landmark, District, State" required>Warehouse Plot 14, APMC Market Road, Nanded District, MH</textarea>
+          </div>
+
+          <div style="display:flex; justify-content:space-between;">
+            <button class="btn-secondary" onclick="goToBuyStep(1)">← Back</button>
+            <button class="btn-primary" onclick="goToBuyStep(3)">Proceed to Payment →</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Payment -->
+        <div id="buyStep3" style="display:none;">
+          <h3 style="margin-bottom:16px;">Choose Payment Method</h3>
+          <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
+            <label style="display:flex; align-items:center; gap:12px; padding:16px; border:1px solid rgba(45,75,55,0.2); border-radius:12px; cursor:pointer; background:var(--oatmeal);">
+              <input type="radio" name="payMethod" value="cod" checked>
+              <div>
+                <strong>Cash on Delivery (Pay at Mandi / Unloading)</strong>
+                <div style="font-size:12px; color:var(--text-muted);">Inspect quality and grain moisture before settlement.</div>
+              </div>
+            </label>
+            <label style="display:flex; align-items:center; gap:12px; padding:16px; border:1px solid rgba(45,75,55,0.2); border-radius:12px; cursor:pointer; background:var(--oatmeal);">
+              <input type="radio" name="payMethod" value="upi">
+              <div>
+                <strong>Instant UPI / Net Banking (Prepaid Escrow)</strong>
+                <div style="font-size:12px; color:var(--text-muted);">Protected by MilletConnect smart escrow settlement protocol.</div>
+              </div>
+            </label>
+          </div>
+
+          <div class="calc-card" style="margin-bottom:28px;">
+            <div>
+              <div class="calc-label">Total Payable</div>
+              <div style="font-size:12px; color:var(--text-muted);" id="deliveryFeeNotice">Includes free logistics aggregation</div>
+            </div>
+            <div class="calc-val" id="finalPayableDisplay">₹0.00</div>
+          </div>
+
+          <div style="display:flex; justify-content:space-between;">
+            <button class="btn-secondary" onclick="goToBuyStep(2)">← Back</button>
+            <button class="btn-primary" style="background:var(--accent);" onclick="confirmPlaceOrder()">
+              ✓ Place & Confirm Buy Order
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 5. ORDERS & DELIVERY DASHBOARD ================= -->
+    <section id="page-orders" class="page-section">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px;">
+        <div>
+          <h1 style="font-size:40px; margin-bottom:6px;">Order & Delivery Management</h1>
+          <p style="color:var(--text-muted);">Real-time tracking of procurement, transit milestones, and sell listings.</p>
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn-secondary" onclick="filterOrderTab('all', this)" id="tab-all" style="background:var(--primary); color:var(--white);">All Orders</button>
+          <button class="btn-secondary" onclick="filterOrderTab('buy', this)" id="tab-buy">My Purchases</button>
+          <button class="btn-secondary" onclick="filterOrderTab('sell', this)" id="tab-sell">My Sell Listings</button>
+        </div>
+      </div>
+
+      <!-- Quick Metrics -->
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:32px;">
+        <div style="background:var(--white); padding:20px; border-radius:16px; border:1px solid rgba(45,75,55,0.1);">
+          <div style="font-size:13px; color:var(--text-muted);">Active Orders</div>
+          <div style="font-size:28px; font-weight:800; color:var(--primary);" id="activeOrdersCount">0</div>
+        </div>
+        <div style="background:var(--white); padding:20px; border-radius:16px; border:1px solid rgba(45,75,55,0.1);">
+          <div style="font-size:13px; color:var(--text-muted);">Total Millet Volume</div>
+          <div style="font-size:28px; font-weight:800; color:var(--secondary);" id="totalVolumeCount">0 kg</div>
+        </div>
+        <div style="background:var(--white); padding:20px; border-radius:16px; border:1px solid rgba(45,75,55,0.1);">
+          <div style="font-size:13px; color:var(--text-muted);">Total Order Value</div>
+          <div style="font-size:28px; font-weight:800; color:var(--accent);" id="totalAmountCount">₹0</div>
+        </div>
+      </div>
+
+      <!-- Orders List -->
+      <div id="ordersListContainer">
+        <!-- Rendered by JS -->
+      </div>
+    </section>
+
+    <!-- ================= 6. TRACEABILITY SECTION ================= -->
+    <section id="page-traceability" class="page-section">
+      <div class="section-header">
+        <h1 style="font-size:42px; margin-bottom:8px;">Farm-to-Fork Traceability</h1>
+        <p>Verify harvest origin, soil certification, quality grading, and transport verification.</p>
+      </div>
+
+      <!-- Tracking Search Box -->
+      <div class="trace-card" style="max-width:720px; margin:0 auto 40px;">
+        <form onsubmit="handleTraceSearch(event)" style="display:flex; gap:12px;">
+          <input type="text" id="traceSearchInput" class="form-control" placeholder="Enter Batch ID (e.g. MIL-RAJ-1024 or MIL-MH-8821)" value="MIL-RAJ-1024" required>
+          <button type="submit" class="btn-primary" style="flex-shrink:0;">
+            Verify Lot Origin
+          </button>
+        </form>
+
+        <div style="margin-top:14px; font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:8px;">
+          <span>Try quick sample IDs:</span>
+          <a style="color:var(--primary); font-weight:700; cursor:pointer;" onclick="quickTrace('MIL-RAJ-1024')">MIL-RAJ-1024</a>
+          <span>•</span>
+          <a style="color:var(--primary); font-weight:700; cursor:pointer;" onclick="quickTrace('MIL-MH-8821')">MIL-MH-8821</a>
+        </div>
+      </div>
+
+      <!-- Trace Details Result -->
+      <div id="traceResultCard" class="trace-card" style="max-width:920px; margin:0 auto; display:none;">
+        <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:36px;">
+          <div>
+            <div style="border-radius:16px; overflow:hidden; height:200px; margin-bottom:20px; background:#e0e7e2;">
+              <img id="traceImg" src="" style="width:100%; height:100%; object-fit:cover;">
+            </div>
+            <div class="product-badge" style="position:static; display:inline-block; margin-bottom:10px;" id="traceGrade">Premium Grade A+</div>
+            <h3 style="font-size:24px; margin-bottom:6px;" id="traceCropName">Organic Pearl Millet</h3>
+            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;" id="traceBatchId">Batch ID: MIL-RAJ-1024</p>
+            
+            <div style="background:var(--oatmeal); padding:16px; border-radius:12px; font-size:13px; line-height:1.7;">
+              <div><strong>Farmer:</strong> <span id="traceFarmer">Ramesh Singh</span></div>
+              <div><strong>Region:</strong> <span id="traceLocation">Bikaner, Rajasthan</span></div>
+              <div><strong>Moisture:</strong> <span id="traceMoisture">10.4% (Optimal)</span></div>
+              <div><strong>FSSAI Certified:</strong> <span style="color:#166534; font-weight:700;">✓ #10022011000452</span></div>
+            </div>
+          </div>
+
+          <div>
+            <h3 style="font-size:22px; margin-bottom:20px;">Audited Journey Milestones</h3>
+            <div class="trace-timeline" id="traceTimeline">
+              <!-- Steps rendered dynamically -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7. AWARENESS HUB ================= -->
+    <section id="page-awareness" class="page-section">
+      <div class="section-header">
+        <h1 style="font-size:42px; margin-bottom:8px;">The Millet Awareness Hub</h1>
+        <p>Your comprehensive guide to cultivating, consuming, and capitalizing on the superfood of the future.</p>
+      </div>
+
+      <!-- Quick Comparison Table -->
+      <div style="background:var(--white); border-radius:var(--radius-lg); padding:32px; border:1px solid rgba(45,75,55,0.1); margin-bottom:48px; box-shadow:var(--shadow-sm);">
+        <h3 style="font-size:22px; margin-bottom:16px;">Millets vs. Common Cereals: Superfood Matrix</h3>
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
+            <thead>
+              <tr style="background:rgba(45,75,55,0.06); border-bottom:2px solid rgba(45,75,55,0.15);">
+                <th style="padding:14px;">Parameter</th>
+                <th style="padding:14px; color:var(--primary); font-weight:800;">Millets (Ragi/Bajra)</th>
+                <th style="padding:14px;">Paddy (Rice)</th>
+                <th style="padding:14px;">Wheat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid rgba(45,75,55,0.08);">
+                <td style="padding:12px 14px; font-weight:600;">Water Required / kg</td>
+                <td style="padding:12px 14px; color:var(--primary); font-weight:700;">300 – 400 Liters (Very Low)</td>
+                <td style="padding:12px 14px;">3,000 – 5,000 Liters</td>
+                <td style="padding:12px 14px;">1,500 – 2,000 Liters</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(45,75,55,0.08);">
+                <td style="padding:12px 14px; font-weight:600;">Dietary Fiber</td>
+                <td style="padding:12px 14px; color:var(--primary); font-weight:700;">8.5 – 12.5%</td>
+                <td style="padding:12px 14px;">0.2%</td>
+                <td style="padding:12px 14px;">1.2%</td>
+              </tr>
+              <tr style="border-bottom:1px solid rgba(45,75,55,0.08);">
+                <td style="padding:12px 14px; font-weight:600;">Glycemic Index (GI)</td>
+                <td style="padding:12px 14px; color:var(--primary); font-weight:700;">Low (&lt; 55) - Diabetic Friendly</td>
+                <td style="padding:12px 14px;">High (&gt; 75)</td>
+                <td style="padding:12px 14px;">Medium (65)</td>
+              </tr>
+              <tr>
+                <td style="padding:12px 14px; font-weight:600;">Climate Resilience</td>
+                <td style="padding:12px 14px; color:var(--primary); font-weight:700;">Thrives in drought & arid soils</td>
+                <td style="padding:12px 14px;">Vulnerable to flood/drought</td>
+                <td style="padding:12px 14px;">Temperature sensitive</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Articles Grid -->
+      <div class="features-grid">
+        <div class="feature-card" style="cursor:pointer;" onclick="openArticleModal(1)">
+          <div style="height:160px; border-radius:12px; overflow:hidden; margin-bottom:16px;">
+            <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <span style="font-size:12px; font-weight:700; color:var(--secondary);">NUTRITION</span>
+          <h3 style="margin-top:6px;">Why Millets are India's Future Superfood</h3>
+          <p style="margin-top:8px;">Rich in essential micronutrients, magnesium, and dietary fiber that support metabolic and heart health.</p>
+          <div style="margin-top:14px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
+        </div>
+
+        <div class="feature-card" style="cursor:pointer;" onclick="openArticleModal(2)">
+          <div style="height:160px; border-radius:12px; overflow:hidden; margin-bottom:16px;">
+            <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <span style="font-size:12px; font-weight:700; color:var(--secondary);">AGRONOMY</span>
+          <h3 style="margin-top:6px;">Climate Smart Farming with Shree Anna</h3>
+          <p style="margin-top:8px;">How millet crops protect topsoil, conserve groundwater, and generate resilient yields in rainfed districts.</p>
+          <div style="margin-top:14px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
+        </div>
+
+        <div class="feature-card" style="cursor:pointer;" onclick="openArticleModal(3)">
+          <div style="height:160px; border-radius:12px; overflow:hidden; margin-bottom:16px;">
+            <img src="https://images.unsplash.com/photo-1501265976582-c1e1b0bbaf63?auto=format&fit=crop&q=80&w=600" style="width:100%; height:100%; object-fit:cover;">
+          </div>
+          <span style="font-size:12px; font-weight:700; color:var(--secondary);">CULINARY</span>
+          <h3 style="margin-top:6px;">Traditional Recipes Modernized</h3>
+          <p style="margin-top:8px;">From nutritious Ragi Dosa to crispy Bajra crackers, explore delicious and high-protein kitchen staples.</p>
+          <div style="margin-top:14px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 8. DASHBOARD / USER PROFILE ================= -->
+    <section id="page-dashboard" class="page-section">
+      <div style="max-width:860px; margin:0 auto;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:28px;">
+          <div>
+            <h1 style="font-size:38px;">User Dashboard</h1>
+            <p style="color:var(--text-muted);">Manage your ecosystem credentials, listings, and delivery assignments.</p>
+          </div>
+          <button class="btn-secondary" onclick="openRoleModal()">
+            Change Persona
+          </button>
+        </div>
+
+        <div style="background:var(--white); border-radius:var(--radius-xl); padding:36px; border:1px solid rgba(45,75,55,0.12); box-shadow:var(--shadow-sm); margin-bottom:32px;">
+          <div style="display:flex; align-items:center; gap:20px; margin-bottom:28px; padding-bottom:24px; border-bottom:1px solid rgba(45,75,55,0.08);">
+            <div style="width:68px; height:68px; border-radius:50%; background:var(--primary); color:var(--oatmeal); display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:700;">
+              <span id="userAvatar">RP</span>
+            </div>
+            <div>
+              <h2 style="font-size:26px;" id="dashUserName">Ramesh Patil</h2>
+              <div style="color:var(--secondary); font-weight:700; font-size:14px;" id="dashUserRole">Verified Primary Producer (Farmer)</div>
+              <div style="font-size:13px; color:var(--text-muted);" id="dashUserLocation">📍 Nanded District, Maharashtra</div>
+            </div>
+          </div>
+
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:14px;">
+            <div style="background:var(--oatmeal); padding:16px; border-radius:12px;">
+              <div style="color:var(--text-muted); font-size:12px;">ACCOUNT EMAIL</div>
+              <strong id="dashUserEmail">ramesh.patil@milletconnect.org</strong>
+            </div>
+            <div style="background:var(--oatmeal); padding:16px; border-radius:12px;">
+              <div style="color:var(--text-muted); font-size:12px;">VERIFICATION STATUS</div>
+              <strong style="color:#166534;">✓ Aadhaar & Land Record KYC Passed</strong>
+            </div>
+            <div style="background:var(--oatmeal); padding:16px; border-radius:12px;">
+              <div style="color:var(--text-muted); font-size:12px;">REGISTERED MANDI HUB</div>
+              <strong>Nanded Central Agricultural Hub</strong>
+            </div>
+            <div style="background:var(--oatmeal); padding:16px; border-radius:12px;">
+              <div style="color:var(--text-muted); font-size:12px;">ESCROW BANK SETTLEMENT</div>
+              <strong>State Bank of India (A/C ***4892)</strong>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:16px;">
+          <button class="btn-primary" onclick="navigate('sell')">+ Create New Sell Listing</button>
+          <button class="btn-secondary" onclick="navigate('orders')">View Active Orders</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Article Details Modal -->
+  <div class="modal-overlay" id="articleModal">
+    <div class="modal-box">
+      <button class="modal-close" onclick="closeArticleModal()">✕</button>
+      <div id="articleModalContent"></div>
+    </div>
+  </div>
+
+  <!-- Role Switcher Modal -->
+  <div class="modal-overlay" id="roleModal">
+    <div class="modal-box" style="max-width:480px;">
+      <button class="modal-close" onclick="closeRoleModal()">✕</button>
+      <h3 style="font-size:22px; margin-bottom:8px;">Switch Demo Persona</h3>
+      <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Experience the platform through different stakeholder perspectives:</p>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px;" onclick="selectPersona('farmer')">
+          <div style="font-size:24px;">👨‍🌾</div>
+          <div>
+            <strong>Ramesh Patil</strong>
+            <div style="font-size:12px; color:var(--text-muted);">Farmer / Producer (Lists harvest, tracks sales)</div>
+          </div>
+        </div>
+
+        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px;" onclick="selectPersona('buyer')">
+          <div style="font-size:24px;">🛒</div>
+          <div>
+            <strong>Savita Agro Traders</strong>
+            <div style="font-size:12px; color:var(--text-muted);">Institutional Buyer / Processor (Sources millets)</div>
+          </div>
+        </div>
+
+        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px;" onclick="selectPersona('transporter')">
+          <div style="font-size:24px;">🚚</div>
+          <div>
+            <strong>Kisan Logistics Network</strong>
+            <div style="font-size:12px; color:var(--text-muted);">Transporter / Fleet Manager (Handles delivery)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Success Modal -->
+  <div class="modal-overlay" id="orderSuccessModal">
+    <div class="modal-box" style="text-align:center;">
+      <div style="width:72px; height:72px; border-radius:50%; background:#DCFCE7; color:#166534; font-size:36px; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+        ✓
+      </div>
+      <h2 style="font-size:30px; margin-bottom:8px;">Order Placed Successfully!</h2>
+      <p style="color:var(--text-muted); font-size:15px; margin-bottom:20px;" id="orderSuccessDesc">
+        Your order has been recorded and assigned a delivery tracking identifier.
+      </p>
+
+      <div style="background:var(--oatmeal); padding:16px; border-radius:14px; margin-bottom:24px; font-size:14px;">
+        <div>Order Reference ID: <strong id="successOrderId" style="color:var(--primary); font-family:monospace; font-size:16px;">MC-2026-9041</strong></div>
+        <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">SMS and WhatsApp updates dispatched to your registered number.</div>
+      </div>
+
+      <div style="display:flex; justify-content:center; gap:12px;">
+        <button class="btn-primary" onclick="closeOrderModalAndGoToOrders()">View in Orders Dashboard</button>
+        <button class="btn-secondary" onclick="closeOrderSuccessModal()">Keep Shopping</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toastBox">
+    <span id="toastMsg">Action completed</span>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+          <div class="brand-icon" style="background:#FBBF24; color:var(--primary-dark);">🌾</div>
+          <span style="font-family:var(--font-serif); font-size:22px; font-weight:800; color:var(--white);">MilletConnect</span>
+        </div>
+        <p style="font-size:14px; color:rgba(245,245,240,0.7); line-height:1.6;">
+          Digitally connecting farmers, buyers, logistics aggregators, and consumers in India's smart millet supply chain.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navigation</h4>
+        <ul>
+          <li><a onclick="navigate('home')">Home</a></li>
+          <li><a onclick="navigate('marketplace')">Marketplace</a></li>
+          <li><a onclick="navigate('sell')">Sell Millets</a></li>
+          <li><a onclick="navigate('orders')">Orders & Delivery</a></li>
+          <li><a onclick="navigate('traceability')">Traceability Engine</a></li>
+          <li><a onclick="navigate('awareness')">Awareness Hub</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Millet Varieties</h4>
+        <ul>
+          <li><a onclick="quickFilter('Pearl Millet (Bajra)')">Pearl Millet (Bajra)</a></li>
+          <li><a onclick="quickFilter('Finger Millet (Ragi)')">Finger Millet (Ragi)</a></li>
+          <li><a onclick="quickFilter('Foxtail Millet (Kangni)')">Foxtail Millet (Kangni)</a></li>
+          <li><a onclick="quickFilter('Sorghum (Jowar)')">Sorghum (Jowar)</a></li>
+          <li><a onclick="quickFilter('Little Millet (Kutki)')">Little Millet (Kutki)</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Government & Schemes</h4>
+        <ul>
+          <li><a href="https://millets.gov.in" target="_blank" rel="noopener">National Millet Mission (IYM) ↗</a></li>
+          <li><a href="https://pmkisan.gov.in" target="_blank" rel="noopener">PM-KISAN Direct Benefit ↗</a></li>
+          <li><a href="https://agmarknet.gov.in" target="_blank" rel="noopener">Agmarknet Mandi Prices ↗</a></li>
+          <li><a href="https://enam.gov.in" target="_blank" rel="noopener">e-NAM Agricultural Portal ↗</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      &copy; 2026 MilletConnect. Built for Smart India Hackathon & B.Tech Final Year Engineering. All rights reserved.
+    </div>
+  </footer>
+
+  <!-- SCRIPT LOGIC (Self-Contained Full Functional Prototype) -->
+  <script>
+    /* ================= INITIAL DATA & STATE ================= */
+    const DEFAULT_PRODUCTS = [
+      {
+        id: "prod-1",
+        name: "Pearl Millet (Bajra)",
+        category: "Raw Millets",
+        price: 42,
+        farmer: "Ramesh Patil",
+        location: "Nanded, Maharashtra",
+        volume: 850,
+        rating: 4.9,
+        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600",
+        badge: "ORGANIC"
+      },
+      {
+        id: "prod-2",
+        name: "Finger Millet (Ragi)",
+        category: "Raw Millets",
+        price: 55,
+        farmer: "Vijay Kumar",
+        location: "Latur District, MH",
+        volume: 620,
+        rating: 4.8,
+        image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&q=80&w=600",
+        badge: "GRADE A+"
+      },
+      {
+        id: "prod-3",
+        name: "Foxtail Millet (Kangni)",
+        category: "Raw Millets",
+        price: 68,
+        farmer: "Savita SHG",
+        location: "Aurangabad, MH",
+        volume: 340,
+        rating: 4.9,
+        image: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600",
+        badge: "SHG CERTIFIED"
+      },
+      {
+        id: "prod-4",
+        name: "Stone Ground Jowar Atta",
+        category: "Processed Flour",
+        price: 52,
+        farmer: "Meera Agro FPO",
+        location: "Solapur, MH",
+        volume: 450,
+        rating: 4.7,
+        image: "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=600",
+        badge: "FSSAI TESTED"
+      },
+      {
+        id: "prod-5",
+        name: "Little Millet (Kutki)",
+        category: "Raw Millets",
+        price: 74,
+        farmer: "Arjun Rao",
+        location: "Osmanabad, MH",
+        volume: 290,
+        rating: 4.9,
+        image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=600",
+        badge: "ORGANIC"
+      },
+      {
+        id: "prod-6",
+        name: "Ragi Crunchy Energy Cookies",
+        category: "Millet Snacks",
+        price: 120,
+        farmer: "NutriMillet Startup",
+        location: "Pune, Maharashtra",
+        volume: 180,
+        rating: 4.8,
+        image: "https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&q=80&w=600",
+        badge: "VALUE ADDED"
+      }
+    ];
+
+    const DEFAULT_ORDERS = [
+      {
+        id: "MC-2026-8812",
+        product_name: "Pearl Millet (Bajra)",
+        quantity_kg: 100,
+        price_per_kg: 42,
+        total_price: 4200,
+        type: "buy",
+        status: "dispatched",
+        created_at: "2026-11-18",
+        delivery_address: "Plot 14, APMC Market, Nanded",
+        payment_method: "cod",
+        carrier: "Kisan Express Fleet #MH-26-9912"
+      },
+      {
+        id: "MC-2026-7643",
+        product_name: "Finger Millet (Ragi)",
+        quantity_kg: 250,
+        price_per_kg: 55,
+        total_price: 13750,
+        type: "sell",
+        status: "completed",
+        created_at: "2026-11-14",
+        delivery_address: "Mandi Distribution Hub, Latur",
+        payment_method: "upi",
+        carrier: "AgriDirect Transport"
+      },
+      {
+        id: "MC-2026-9041",
+        product_name: "Stone Ground Jowar Atta",
+        quantity_kg: 50,
+        price_per_kg: 52,
+        total_price: 2600,
+        type: "buy",
+        status: "pending",
+        created_at: "2026-11-19",
+        delivery_address: "Annapurna Retailers, Aurangabad",
+        payment_method: "upi",
+        carrier: "Assigned upon dispatch"
+      }
+    ];
+
+    const TRACE_DATA = {
+      "MIL-RAJ-1024": {
+        crop: "Organic Pearl Millet (Bajra)",
+        farmer: "Ramesh Singh",
+        location: "Bikaner, Rajasthan",
+        grade: "Premium Grade A+",
+        moisture: "10.4% (Optimal)",
+        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600",
+        steps: [
+          { title: "Organic Sowing & Cultivation", date: "Oct 15, 2025", location: "Farm Sector 4, Bikaner", desc: "Planted under National Natural Farming Mission. Certified pesticide-free with organic vermicompost." },
+          { title: "Harvesting & Mandi Testing", date: "Jan 20, 2026", location: "Bikaner APMC Mandi", desc: "Moisture tested at 10.4%, grain purity 99.2%. Grade A+ quality certificate issued." },
+          { title: "De-stoning & Vacuum Packaging", date: "Feb 05, 2026", location: "Jaipur Processing Unit", desc: "Mechanically cleaned, sorted, and packed in food-grade eco-bags." },
+          { title: "Hub Transit & Dispatch", date: "Feb 12, 2026", location: "Regional Hub, Delhi NCR", desc: "Stored in temperature & humidity controlled logistics facility for buyer delivery." }
+        ]
+      },
+      "MIL-MH-8821": {
+        crop: "Finger Millet (Ragi - Pure Local)",
+        farmer: "Vijay Kumar",
+        location: "Latur District, Maharashtra",
+        grade: "Superfine Nutritional Grade A",
+        moisture: "9.8% (Sun Dried)",
+        image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?auto=format&fit=crop&q=80&w=600",
+        steps: [
+          { title: "Rainfed Sowing (Kharif)", date: "Jul 10, 2025", location: "Latur Watershed Plot", desc: "Traditional indigenous seeds preserved by Latur Seed Bank." },
+          { title: "Harvest & Thrashing", date: "Nov 02, 2025", location: "Vijay Kumar Farm", desc: "Traditional sun drying on stone threshing floor." },
+          { title: "FPO Aggregation & Lab Assay", date: "Nov 22, 2025", location: "Marathwada FPO Hub", desc: "Passed heavy metal, aflatoxin, and moisture tests." },
+          { title: "Doorstep Buyer Dispatch", date: "Dec 01, 2025", location: "Central Hub, Pune", desc: "Barcoded for live GPS shipment tracking." }
+        ]
+      }
+    };
+
+    /* State objects */
+    let products = JSON.parse(localStorage.getItem("mc_products")) || DEFAULT_PRODUCTS;
+    let orders = JSON.parse(localStorage.getItem("mc_orders")) || DEFAULT_ORDERS;
+    let selectedBuyProduct = null;
+    let currentCategory = "All";
+    let currentOrderFilter = "all";
+    let currentLanguage = "EN";
+
+    function saveState() {
+      localStorage.setItem("mc_products", JSON.stringify(products));
+      localStorage.setItem("mc_orders", JSON.stringify(orders));
+    }
+
+    function resetDemoData() {
+      if (confirm("Reset all demo products, orders, and changes back to default?")) {
+        localStorage.removeItem("mc_products");
+        localStorage.removeItem("mc_orders");
+        products = [...DEFAULT_PRODUCTS];
+        orders = [...DEFAULT_ORDERS];
+        saveState();
+        renderProducts();
+        renderOrders();
+        showToast("Demo data successfully reset to defaults!");
+      }
+    }
+
+    /* ================= NAVIGATION ================= */
+    function navigate(pageId) {
+      document.querySelectorAll(".page-section").forEach(sec => sec.classList.remove("active"));
+      document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
+
+      const target = document.getElementById(`page-${pageId}`);
+      if (target) {
+        target.classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      const navBtn = document.getElementById(`nav-${pageId}`);
+      if (navBtn) navBtn.classList.add("active");
+
+      if (pageId === "marketplace") renderProducts();
+      if (pageId === "orders") renderOrders();
+    }
+
+    /* ================= TOAST NOTIFICATION ================= */
+    function showToast(msg) {
+      const box = document.getElementById("toastBox");
+      const text = document.getElementById("toastMsg");
+      text.innerText = msg;
+      box.classList.add("show");
+      setTimeout(() => box.classList.remove("show"), 3500);
+    }
+
+    /* ================= MARKETPLACE LOGIC ================= */
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll(".cat-pill").forEach(p => p.classList.remove("active"));
+      if (btn) btn.classList.add("active");
+      renderProducts();
+    }
+
+    function filterProducts() {
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById("productsGrid");
+      const searchVal = (document.getElementById("marketSearch")?.value || "").toLowerCase().trim();
+      const sortVal = document.getElementById("priceSort")?.value || "featured";
+
+      let list = products.filter(p => {
+        const matchesCat = (currentCategory === "All") || 
+          (currentCategory === "Organic" ? p.badge.includes("ORGANIC") : p.category === currentCategory);
+        const matchesSearch = p.name.toLowerCase().includes(searchVal) || 
+          p.farmer.toLowerCase().includes(searchVal) || 
+          p.location.toLowerCase().includes(searchVal);
+        return matchesCat && matchesSearch;
+      });
+
+      if (sortVal === "price-asc") list.sort((a,b) => a.price - b.price);
+      else if (sortVal === "price-desc") list.sort((a,b) => b.price - a.price);
+      else if (sortVal === "volume") list.sort((a,b) => b.volume - a.volume);
+
+      if (list.length === 0) {
+        grid.innerHTML = `
+          <div style="grid-column:1/-1; text-align:center; padding:48px; background:white; border-radius:16px;">
+            <div style="font-size:36px; margin-bottom:12px;">🌾</div>
+            <h3 style="font-size:20px; margin-bottom:8px;">No Millets Found</h3>
+            <p style="color:var(--text-muted); font-size:14px;">Try adjusting your search keywords or clear your category filter.</p>
+          </div>
+        `;
+        return;
+      }
+
+      grid.innerHTML = list.map(p => `
+        <div class="product-card">
+          <div class="product-img-box">
+            <img src="${p.image}" alt="${p.name}" loading="lazy">
+            <div class="product-badge">${p.badge}</div>
+          </div>
+          <div class="product-body">
+            <div class="product-cat">${p.category}</div>
+            <h3 class="product-title">${p.name}</h3>
+            <div class="product-farmer">
+              <span>👨‍🌾</span> ${p.farmer} &nbsp;•&nbsp; 📍 ${p.location}
+            </div>
+            <div class="product-stock">
+              <span>⚖️ Available Stock:</span> <strong>${p.volume} kg</strong>
+            </div>
+            <div class="product-footer">
+              <div>
+                <span class="product-price-val">₹${p.price}</span>
+                <span class="product-price-unit">/ kg</span>
+              </div>
+              <button class="btn-primary" style="padding:8px 16px; font-size:13px;" onclick="initiateBuy('${p.id}')">
+                Buy Produce →
+              </button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function quickFilter(milletName) {
+      navigate("marketplace");
+      const search = document.getElementById("marketSearch");
+      if (search) {
+        search.value = milletName;
+        renderProducts();
+      }
+    }
+
+    /* ================= SELL FLOW LOGIC ================= */
+    function handleMilletTypeChange() {
+      const type = document.getElementById("sellMilletType").value;
+      const customWrap = document.getElementById("customMilletWrap");
+      customWrap.style.display = type === "Other" ? "block" : "none";
+    }
+
+    function calculateSellTotal() {
+      const vol = parseFloat(document.getElementById("sellVolume").value) || 0;
+      const price = parseFloat(document.getElementById("sellPrice").value) || 0;
+      const total = vol * price;
+      document.getElementById("sellTotalDisplay").innerText = "₹" + total.toLocaleString("en-IN", { minimumFractionDigits: 2 });
+    }
+
+    function handleSellSubmit(e) {
+      e.preventDefault();
+      const typeSelect = document.getElementById("sellMilletType").value;
+      const custom = document.getElementById("customMilletName").value.trim();
+      const milletName = typeSelect === "Other" && custom ? custom : typeSelect;
+      const volume = parseFloat(document.getElementById("sellVolume").value) || 0;
+      const price = parseFloat(document.getElementById("sellPrice").value) || 0;
+      const location = document.getElementById("sellLocation").value.trim() || "Nanded, MH";
+
+      if (volume <= 0 || price <= 0) {
+        alert("Please enter valid volume and price numbers.");
+        return;
+      }
+
+      const newId = "prod-" + Date.now();
+      const newProduct = {
+        id: newId,
+        name: milletName,
+        category: "Raw Millets",
+        price: price,
+        farmer: "Ramesh Patil (You)",
+        location: location,
+        volume: volume,
+        rating: 5.0,
+        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600",
+        badge: "FARM DIRECT"
+      };
+
+      // Add to products
+      products.unshift(newProduct);
+
+      // Add corresponding order entry
+      const newOrderId = "MC-SELL-" + Math.floor(1000 + Math.random() * 9000);
+      orders.unshift({
+        id: newOrderId,
+        product_name: milletName,
+        quantity_kg: volume,
+        price_per_kg: price,
+        total_price: volume * price,
+        type: "sell",
+        status: "pending",
+        created_at: new Date().toISOString().split("T")[0],
+        delivery_address: location + " Mandi Yard",
+        payment_method: "upi",
+        carrier: "Awaiting Logistics Pickup"
+      });
+
+      saveState();
+      showToast(`Listing for ${volume} kg ${milletName} created successfully!`);
+      document.getElementById("sellForm").reset();
+      calculateSellTotal();
+      navigate("marketplace");
+    }
+
+    /* ================= BUY FLOW LOGIC ================= */
+    function initiateBuy(prodId) {
+      const prod = products.find(p => p.id === prodId);
+      if (!prod) return;
+      selectedBuyProduct = prod;
+
+      // Setup Buy Page Header
+      const header = document.getElementById("buyProductHeader");
+      header.innerHTML = `
+        <div style="width:60px; height:60px; border-radius:12px; overflow:hidden; flex-shrink:0;">
+          <img src="${prod.image}" style="width:100%; height:100%; object-fit:cover;">
+        </div>
+        <div style="flex:1;">
+          <div style="font-size:12px; font-weight:700; color:var(--secondary);">${prod.category}</div>
+          <div style="font-size:18px; font-weight:800; color:var(--primary-dark);">${prod.name}</div>
+          <div style="font-size:13px; color:var(--text-muted);">Sold by: <strong>${prod.farmer}</strong> (${prod.location})</div>
+        </div>
+        <div style="text-align:right;">
+          <div style="font-size:22px; font-weight:800; color:var(--primary);">₹${prod.price} <span style="font-size:12px; font-weight:normal;">/ kg</span></div>
+          <div style="font-size:12px; color:var(--text-muted);">Stock: ${prod.volume} kg</div>
+        </div>
+      `;
+
+      // Set max volume
+      const qtyInput = document.getElementById("buyQty");
+      qtyInput.max = prod.volume;
+      qtyInput.value = Math.min(25, prod.volume);
+      document.getElementById("buyMaxStockInfo").innerText = `Maximum lot volume available: ${prod.volume} kg`;
+
+      calculateBuyTotal();
+      goToBuyStep(1);
+      navigate("buy");
+    }
+
+    function calculateBuyTotal() {
+      if (!selectedBuyProduct) return;
+      const qty = parseFloat(document.getElementById("buyQty").value) || 0;
+      const price = selectedBuyProduct.price;
+      const subtotal = qty * price;
+      
+      document.getElementById("buyTotalDisplay").innerText = "₹" + subtotal.toLocaleString("en-IN", { minimumFractionDigits: 2 });
+      document.getElementById("finalPayableDisplay").innerText = "₹" + subtotal.toLocaleString("en-IN", { minimumFractionDigits: 2 });
+    }
+
+    function goToBuyStep(stepNum) {
+      const qty = parseFloat(document.getElementById("buyQty").value) || 0;
+      if (stepNum > 1 && (qty <= 0 || qty > selectedBuyProduct.volume)) {
+        alert(`Please choose a valid quantity between 1 and ${selectedBuyProduct.volume} kg.`);
+        return;
+      }
+
+      document.getElementById("buyStep1").style.display = stepNum === 1 ? "block" : "none";
+      document.getElementById("buyStep2").style.display = stepNum === 2 ? "block" : "none";
+      document.getElementById("buyStep3").style.display = stepNum === 3 ? "block" : "none";
+
+      for (let i = 1; i <= 3; i++) {
+        const node = document.getElementById(`bstep-${i}`);
+        if (i <= stepNum) node.classList.add("active");
+        else node.classList.remove("active");
+      }
+    }
+
+    function confirmPlaceOrder() {
+      if (!selectedBuyProduct) return;
+      const qty = parseFloat(document.getElementById("buyQty").value) || 0;
+      const address = document.getElementById("buyerAddress").value.trim();
+      const name = document.getElementById("buyerName").value.trim();
+      const payMethod = document.querySelector('input[name="payMethod"]:checked')?.value || "cod";
+
+      if (!address || !name) {
+        alert("Please provide complete delivery details and address.");
+        return;
+      }
+
+      // Deduct stock from product
+      selectedBuyProduct.volume = Math.max(0, selectedBuyProduct.volume - qty);
+
+      // Create new order
+      const newOrderId = "MC-2026-" + Math.floor(1000 + Math.random() * 9000);
+      const newOrder = {
+        id: newOrderId,
+        product_name: selectedBuyProduct.name,
+        quantity_kg: qty,
+        price_per_kg: selectedBuyProduct.price,
+        total_price: qty * selectedBuyProduct.price,
+        type: "buy",
+        status: "pending",
+        created_at: new Date().toISOString().split("T")[0],
+        delivery_address: address,
+        payment_method: payMethod,
+        carrier: "Assigned: Kisan Logistics Express"
+      };
+
+      orders.unshift(newOrder);
+      saveState();
+
+      // Show success modal
+      document.getElementById("successOrderId").innerText = newOrderId;
+      document.getElementById("orderSuccessDesc").innerText = `Your procurement order for ${qty} kg of ${selectedBuyProduct.name} has been confirmed.`;
+      document.getElementById("orderSuccessModal").classList.add("open");
+    }
+
+    function closeOrderSuccessModal() {
+      document.getElementById("orderSuccessModal").classList.remove("open");
+      navigate("marketplace");
+    }
+
+    function closeOrderModalAndGoToOrders() {
+      document.getElementById("orderSuccessModal").classList.remove("open");
+      navigate("orders");
+    }
+
+    /* ================= ORDERS & DELIVERY DASHBOARD ================= */
+    function filterOrderTab(type, btn) {
+      currentOrderFilter = type;
+      document.querySelectorAll("#page-orders .btn-secondary").forEach(b => {
+        b.style.background = "var(--white)";
+        b.style.color = "var(--primary)";
+      });
+      if (btn) {
+        btn.style.background = "var(--primary)";
+        btn.style.color = "var(--white)";
+      }
+      renderOrders();
+    }
+
+    function renderOrders() {
+      const container = document.getElementById("ordersListContainer");
+      let list = orders;
+      if (currentOrderFilter === "buy") list = orders.filter(o => o.type === "buy");
+      if (currentOrderFilter === "sell") list = orders.filter(o => o.type === "sell");
+
+      // Compute dashboard numbers
+      const active = orders.filter(o => o.status !== "completed").length;
+      const totalVol = orders.reduce((sum, o) => sum + (o.quantity_kg || 0), 0);
+      const totalAmt = orders.reduce((sum, o) => sum + (o.total_price || 0), 0);
+
+      document.getElementById("activeOrdersCount").innerText = active;
+      document.getElementById("totalVolumeCount").innerText = totalVol.toLocaleString() + " kg";
+      document.getElementById("totalAmountCount").innerText = "₹" + totalAmt.toLocaleString("en-IN");
+
+      if (list.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:48px; background:white; border-radius:16px;">
+            <div style="font-size:36px; margin-bottom:8px;">📦</div>
+            <h3 style="font-size:20px; margin-bottom:6px;">No Orders in this view</h3>
+            <p style="color:var(--text-muted); font-size:14px;">Browse the marketplace to make a purchase or list harvest produce to sell.</p>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = list.map(o => {
+        const isBuy = o.type === "buy";
+        const isDispatched = o.status === "dispatched";
+        const isDelivered = o.status === "completed";
+
+        return `
+          <div class="order-card">
+            <div class="order-header">
+              <div>
+                <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
+                  <span class="order-tag ${isBuy ? 'tag-buy' : 'tag-sell'}">${isBuy ? 'Buyer Procurement' : 'Farmer Sell Listing'}</span>
+                  <strong style="font-size:14px; font-family:monospace; color:var(--primary);">${o.id}</strong>
+                </div>
+                <h3 style="font-size:22px;">${o.product_name}</h3>
+                <div style="font-size:13px; color:var(--text-muted); margin-top:2px;">
+                  Volume: <strong>${o.quantity_kg} kg</strong> &nbsp;|&nbsp; Rate: ₹${o.price_per_kg}/kg &nbsp;|&nbsp; Ordered on: ${o.created_at}
+                </div>
+              </div>
+              <div style="text-align:right;">
+                <div style="font-size:22px; font-weight:800; color:var(--primary-dark);">₹${(o.total_price || 0).toLocaleString("en-IN")}</div>
+                <span class="status-badge ${o.status === 'completed' ? 'status-delivered' : (o.status === 'dispatched' ? 'status-dispatched' : 'status-pending')}">
+                  ● ${o.status.toUpperCase()}
+                </span>
+              </div>
+            </div>
+
+            <!-- Delivery Progress Milestone Bar -->
+            <div class="delivery-progress">
+              <div class="prog-step done">
+                <div class="prog-icon">✓</div>
+                <div class="prog-label">Order Placed</div>
+              </div>
+              <div class="prog-step ${isDispatched || isDelivered ? 'done' : 'current'}">
+                <div class="prog-icon">${isDispatched || isDelivered ? '✓' : '🌾'}</div>
+                <div class="prog-label">Harvest Packed</div>
+              </div>
+              <div class="prog-step ${isDelivered ? 'done' : (isDispatched ? 'current' : '')}">
+                <div class="prog-icon">${isDelivered ? '✓' : '🚚'}</div>
+                <div class="prog-label">In Transit</div>
+              </div>
+              <div class="prog-step ${isDelivered ? 'done' : ''}">
+                <div class="prog-icon">🏁</div>
+                <div class="prog-label">Delivered & Settled</div>
+              </div>
+            </div>
+
+            <!-- Carrier and Actions Strip -->
+            <div style="display:flex; justify-content:space-between; align-items:center; background:var(--oatmeal); padding:12px 18px; border-radius:12px; font-size:13px; margin-top:16px;">
+              <div>
+                <strong>📍 Destination:</strong> ${o.delivery_address || 'Central Mandi Hub'} 
+                <span style="color:var(--text-muted); margin-left:12px;">(${o.carrier || 'Assigned Transporter'})</span>
+              </div>
+              <div style="display:flex; gap:8px;">
+                <button class="btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="advanceOrderStatus('${o.id}')">
+                  ⚡ Advance Status Demo
+                </button>
+                ${o.status !== 'completed' ? `
+                  <button class="btn-secondary" style="padding:6px 12px; font-size:12px; color:#DC2626; border-color:rgba(220,38,38,0.2);" onclick="cancelOrder('${o.id}')">
+                    Cancel
+                  </button>
+                ` : ''}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function advanceOrderStatus(orderId) {
+      const order = orders.find(o => o.id === orderId);
+      if (!order) return;
+      if (order.status === "pending") order.status = "dispatched";
+      else if (order.status === "dispatched") order.status = "completed";
+      else order.status = "pending";
+      saveState();
+      renderOrders();
+      showToast(`Updated ${order.id} status to: ${order.status.toUpperCase()}`);
+    }
+
+    function cancelOrder(orderId) {
+      if (confirm(`Are you sure you want to cancel order ${orderId}?`)) {
+        orders = orders.filter(o => o.id !== orderId);
+        saveState();
+        renderOrders();
+        showToast(`Order ${orderId} cancelled.`);
+      }
+    }
+
+    /* ================= TRACEABILITY ================= */
+    function handleTraceSearch(e) {
+      e.preventDefault();
+      const id = document.getElementById("traceSearchInput").value.trim().toUpperCase();
+      displayTrace(id);
+    }
+
+    function quickTrace(id) {
+      document.getElementById("traceSearchInput").value = id;
+      displayTrace(id);
+    }
+
+    function displayTrace(id) {
+      const data = TRACE_DATA[id] || {
+        crop: "Verified Hybrid Millet",
+        farmer: "Regional FPO Farmer Partner",
+        location: "Marathwada Agricultural Zone",
+        grade: "Standard Verified Grade A",
+        moisture: "10.2% (Tested)",
+        image: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600",
+        steps: [
+          { title: "Organic Cultivation", date: "Recent Harvest", location: "Registered Cluster", desc: "Monitored under state agricultural extension guidelines." },
+          { title: "Quality Assay Verification", date: "Quality Assured", location: "District AgriLab", desc: "Checked for moisture and grain uniformity." },
+          { title: "Mandi Processing & Aggregation", date: "Packed", location: "Central Mandi", desc: "Bagged with lot-assigned QR traceability token." }
+        ]
+      };
+
+      document.getElementById("traceImg").src = data.image;
+      document.getElementById("traceCropName").innerText = data.crop;
+      document.getElementById("traceBatchId").innerText = "Batch ID: " + id;
+      document.getElementById("traceFarmer").innerText = data.farmer;
+      document.getElementById("traceLocation").innerText = data.location;
+      document.getElementById("traceGrade").innerText = data.grade;
+      document.getElementById("traceMoisture").innerText = data.moisture;
+
+      const timeline = document.getElementById("traceTimeline");
+      timeline.innerHTML = data.steps.map((s, idx) => `
+        <div class="trace-step">
+          <div class="trace-step-dot">${idx + 1}</div>
+          <div style="background:var(--oatmeal); padding:16px 20px; border-radius:14px; border:1px solid rgba(45,75,55,0.08);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <strong style="font-size:15px; color:var(--primary);">${s.title}</strong>
+              <span style="font-size:12px; color:var(--text-muted); font-weight:700;">${s.date}</span>
+            </div>
+            <div style="font-size:12px; color:var(--secondary); font-weight:700; margin-bottom:6px;">📍 ${s.location}</div>
+            <p style="font-size:13px; color:var(--text-muted); line-height:1.5;">${s.desc}</p>
+          </div>
+        </div>
+      `).join("");
+
+      document.getElementById("traceResultCard").style.display = "block";
+      showToast(`Traceability verified for lot ${id}`);
+    }
+
+    /* ================= ARTICLE MODALS ================= */
+    const ARTICLES = {
+      1: {
+        title: "Why Millets are India's Future Superfood",
+        author: "Dr. Ananya Sharma (Nutritional Sciences)",
+        date: "May 10, 2026",
+        content: `
+          <p style="margin-bottom:14px;">Millets are ancient grains that have nourished civilizations across the Indian subcontinent for thousands of years. They are naturally gluten-free and possess a low Glycemic Index (GI), making them ideal for blood glucose management.</p>
+          <p style="margin-bottom:14px;">Unlike polished white rice, which loses its nutrient bran during milling, whole millets contain rich reserves of insoluble fiber, iron, calcium (especially Finger Millet / Ragi), and essential antioxidants that neutralize metabolic stress.</p>
+          <p>The Government of India declared millets as 'Nutri-Cereals' under the Shree Anna initiative to foster domestic consumption and counter nutritional deficiencies at a grassroots level.</p>
+        `
+      },
+      2: {
+        title: "Climate Smart Farming with Shree Anna",
+        author: "Prof. Rajesh Kumar (Agronomy Hub)",
+        date: "May 08, 2026",
+        content: `
+          <p style="margin-bottom:14px;">With climate change intensifying monsoonal fluctuations and depleting groundwater tables, traditional flood-irrigated crops like paddy place immense pressure on rural water resources.</p>
+          <p style="margin-bottom:14px;">Millets require less than one-third the water demanded by wheat and rice, comfortably surviving in semi-arid and rainfed areas. Their deep fibrous root systems prevent soil erosion and improve soil carbon sequestration.</p>
+          <p>By cultivating Shree Anna, farmers mitigate total crop loss risks and ensure stable earnings even during drought-prone seasons.</p>
+        `
+      },
+      3: {
+        title: "Traditional Recipes Modernized for Urban Kitchens",
+        author: "Chef Meera (Culinary Innovations)",
+        date: "May 05, 2026",
+        content: `
+          <p style="margin-bottom:14px;">Cooking with millets does not require complicated techniques. Simple culinary substitutions can bring tremendous flavor and nutrition into daily meals:</p>
+          <ul style="padding-left:20px; line-height:1.8; margin-bottom:14px;">
+            <li><strong>Ragi Malt & Porridge:</strong> High calcium breakfast drink suitable for children and elders.</li>
+            <li><strong>Bajra & Methi Rotla:</strong> Iron-rich winter flatbread served with desi ghee and jaggery.</li>
+            <li><strong>Foxtail Pulao:</strong> A fluffy, 1:1 substitute for basmati rice infused with seasonal vegetables.</li>
+          </ul>
+          <p>Embracing these grains connects contemporary food culture directly with indigenous agricultural resilience.</p>
+        `
+      }
+    };
+
+    function openArticleModal(id) {
+      const art = ARTICLES[id];
+      if (!art) return;
+      document.getElementById("articleModalContent").innerHTML = `
+        <span style="font-size:12px; font-weight:700; color:var(--secondary); text-transform:uppercase;">Insight Guide</span>
+        <h2 style="font-size:26px; margin:6px 0 10px;">${art.title}</h2>
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">By <strong>${art.author}</strong> • Published ${art.date}</div>
+        <div style="font-size:14px; line-height:1.7; color:var(--text);">${art.content}</div>
+      `;
+      document.getElementById("articleModal").classList.add("open");
+    }
+
+    function closeArticleModal() {
+      document.getElementById("articleModal").classList.remove("open");
+    }
+
+    /* ================= PERSONA SWITCHER ================= */
+    const PERSONAS = {
+      farmer: {
+        name: "Ramesh Patil",
+        role: "Verified Primary Producer (Farmer)",
+        avatar: "RP",
+        location: "📍 Nanded District, Maharashtra",
+        email: "ramesh.patil@milletconnect.org"
+      },
+      buyer: {
+        name: "Savita Agro Traders",
+        role: "Institutional Buyer & Processor",
+        avatar: "ST",
+        location: "📍 APMC Grain Market, Nanded",
+        email: "procurement@savitagroups.com"
+      },
+      transporter: {
+        name: "Kisan Logistics Network",
+        role: "Fleet & Mandi Logistics Aggregator",
+        avatar: "KL",
+        location: "📍 Marathwada Regional Transit Hub",
+        email: "fleet@kisanlogistics.in"
+      }
+    };
+
+    function openRoleModal() {
+      document.getElementById("roleModal").classList.add("open");
+    }
+    function closeRoleModal() {
+      document.getElementById("roleModal").classList.remove("open");
+    }
+
+    function selectPersona(type) {
+      const p = PERSONAS[type];
+      if (!p) return;
+      document.getElementById("currentPersonaName").innerText = `${p.name} (${type.charAt(0).toUpperCase() + type.slice(1)})`;
+      document.getElementById("dashUserName").innerText = p.name;
+      document.getElementById("dashUserRole").innerText = p.role;
+      document.getElementById("dashUserLocation").innerText = p.location;
+      document.getElementById("dashUserEmail").innerText = p.email;
+      document.getElementById("userAvatar").innerText = p.avatar;
+      closeRoleModal();
+      showToast(`Switched active persona to ${p.name}`);
+    }
+
+    /* ================= LANGUAGE SWITCHER ================= */
+    const LANGUAGES = ["EN", "HI", "MR"];
+    const TRANSLATIONS = {
+      EN: {
+        badge: "National Smart Millet Ecosystem",
+        heroTitle: "Connecting India's Millet Farmers with Direct Buyers",
+        heroSubtitle: "A unified digital value chain platform providing transparent pricing, farm-to-table traceability, seamless logistics tracking, and verified regional marketplace discovery."
+      },
+      HI: {
+        badge: "राष्ट्रीय स्मार्ट मिलेट इकोसिस्टम",
+        heroTitle: "भारत के मिलेट किसानों को सीधे खरीदारों से जोड़ना",
+        heroSubtitle: "पारदर्शी मूल्य निर्धारण, खेत से थाली तक ट्रेसेबिलिटी और आसान लॉजिस्टिक्स ट्रैकिंग प्रदान करने वाला एकीकृत डिजिटल प्लेटफॉर्म।"
+      },
+      MR: {
+        badge: "राष्ट्रीय स्मार्ट भरडधान्य परिसंस्था",
+        heroTitle: "शेतकऱ्यांना थेट खरेदीदारांशी जोडणारे व्यासपीठ",
+        heroSubtitle: "पारदर्शक भाव, शेत ते ताट ट्रॅकिंग आणि सहज लॉजिस्टिक पुरवणारे श्री अन्न डिजिटल मूल्य साखळी व्यासपीठ."
+      }
+    };
+
+    function cycleLanguage() {
+      const idx = LANGUAGES.indexOf(currentLanguage);
+      currentLanguage = LANGUAGES[(idx + 1) % LANGUAGES.length];
+      document.getElementById("langLabel").innerText = currentLanguage;
+
+      const t = TRANSLATIONS[currentLanguage] || TRANSLATIONS.EN;
+      document.getElementById("heroBadgeText").innerText = t.badge;
+      document.getElementById("heroTitle").innerText = t.heroTitle;
+      document.getElementById("heroSubtitle").innerText = t.heroSubtitle;
+
+      showToast(`Language switched to ${currentLanguage === 'HI' ? 'हिन्दी (Hindi)' : (currentLanguage === 'MR' ? 'मराठी (Marathi)' : 'English')}`);
+    }
+
+    // Initialize on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      renderProducts();
+      renderOrders();
+      displayTrace("MIL-RAJ-1024");
+      calculateSellTotal();
+    });
+  </script>
+</body>
+</html>
