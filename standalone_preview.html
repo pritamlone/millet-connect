@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MilletConnect | Smart Millet Supply Chain Ecosystem (Interactive Preview)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>MilletConnect | Smart Millet Supply Chain Ecosystem (Mobile-Optimized Preview)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&display=swap" rel="stylesheet">
@@ -23,13 +23,13 @@
       --text-muted: #4A5B50;
       --white: #FFFFFF;
       --radius-sm: 8px;
-      --radius-md: 16px;
-      --radius-lg: 24px;
-      --radius-xl: 32px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
       --shadow-sm: 0 2px 8px rgba(26, 46, 33, 0.06);
       --shadow-md: 0 8px 24px rgba(26, 46, 33, 0.08);
       --shadow-lg: 0 16px 40px rgba(26, 46, 33, 0.12);
-      --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       --font-serif: 'Playfair Display', Georgia, serif;
     }
 
@@ -37,6 +37,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
@@ -48,6 +49,7 @@
       display: flex;
       flex-direction: column;
       overflow-x: hidden;
+      width: 100%;
     }
 
     /* Grainy noise texture */
@@ -64,11 +66,13 @@
     .demo-bar {
       background: linear-gradient(90deg, #1A2E21 0%, #2D4B37 100%);
       color: #E8F5ED;
-      font-size: 13px;
+      font-size: 12px;
       padding: 8px 16px;
       display: flex;
       align-items: center;
       justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
       border-bottom: 1px solid rgba(255,255,255,0.1);
       position: relative;
       z-index: 1001;
@@ -80,16 +84,18 @@
       border: none;
       cursor: pointer;
       text-decoration: underline;
+      font-size: 12px;
+      font-family: inherit;
     }
 
-    /* Navigation */
+    /* Header & Navigation Bar */
     header {
       position: sticky;
       top: 0;
-      background: rgba(245, 245, 240, 0.95);
+      background: rgba(245, 245, 240, 0.96);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid rgba(45, 75, 55, 0.1);
+      border-bottom: 1px solid rgba(45, 75, 55, 0.12);
       z-index: 1000;
       transition: all 0.3s ease;
     }
@@ -97,11 +103,12 @@
     .nav-container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 14px 24px;
+      padding: 12px 20px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
+      gap: 12px;
+      position: relative;
     }
 
     .brand {
@@ -111,6 +118,7 @@
       text-decoration: none;
       color: var(--primary);
       cursor: pointer;
+      flex-shrink: 0;
     }
     .brand-icon {
       width: 36px;
@@ -125,16 +133,18 @@
     }
     .brand-text {
       font-family: var(--font-serif);
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       letter-spacing: -0.5px;
       color: var(--primary);
+      white-space: nowrap;
     }
 
+    /* Desktop Navigation Links */
     .nav-links {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       list-style: none;
     }
     .nav-links a {
@@ -146,6 +156,8 @@
       border-radius: 20px;
       transition: all 0.2s ease;
       cursor: pointer;
+      white-space: nowrap;
+      display: inline-block;
     }
     .nav-links a:hover {
       color: var(--primary);
@@ -160,24 +172,25 @@
     .nav-actions {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
+      flex-shrink: 0;
     }
 
-    .lang-btn, .role-badge {
+    .lang-btn {
       display: flex;
       align-items: center;
       gap: 6px;
       background: var(--white);
       border: 1px solid rgba(45, 75, 55, 0.15);
       border-radius: 20px;
-      padding: 6px 14px;
+      padding: 6px 12px;
       font-size: 13px;
       font-weight: 600;
       color: var(--primary);
       cursor: pointer;
       transition: all 0.2s;
     }
-    .lang-btn:hover, .role-badge:hover {
+    .lang-btn:hover {
       border-color: var(--primary);
       background: rgba(45, 75, 55, 0.04);
     }
@@ -187,21 +200,23 @@
       color: var(--oatmeal);
       font-weight: 700;
       font-size: 14px;
-      padding: 10px 20px;
+      padding: 10px 18px;
       border-radius: 24px;
       border: none;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
-      box-shadow: 0 4px 14px rgba(45, 75, 55, 0.25);
+      box-shadow: 0 4px 14px rgba(45, 75, 55, 0.22);
       transition: all 0.25s ease;
       text-decoration: none;
+      white-space: nowrap;
     }
     .btn-primary:hover {
       background: var(--primary-dark);
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(45, 75, 55, 0.35);
+      box-shadow: 0 6px 20px rgba(45, 75, 55, 0.32);
     }
 
     .btn-secondary {
@@ -209,22 +224,101 @@
       color: var(--primary);
       font-weight: 700;
       font-size: 14px;
-      padding: 10px 20px;
+      padding: 10px 18px;
       border-radius: 24px;
       border: 1px solid rgba(45, 75, 55, 0.2);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
+      justify-content: center;
       gap: 8px;
       transition: all 0.2s ease;
       text-decoration: none;
+      white-space: nowrap;
     }
     .btn-secondary:hover {
       background: rgba(45, 75, 55, 0.05);
       border-color: var(--primary);
     }
 
-    /* Page container */
+    /* Mobile Hamburger Button */
+    .mobile-menu-toggle {
+      display: none;
+      width: 42px;
+      height: 42px;
+      background: var(--white);
+      border: 1px solid rgba(45, 75, 55, 0.2);
+      border-radius: 12px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--primary);
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+    .mobile-menu-toggle:hover {
+      background: rgba(45, 75, 55, 0.06);
+    }
+
+    /* Mobile Dropdown Menu */
+    .mobile-dropdown-menu {
+      display: none;
+      flex-direction: column;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-bottom: 2px solid rgba(45, 75, 55, 0.15);
+      box-shadow: var(--shadow-lg);
+      padding: 14px 16px 20px;
+      gap: 6px;
+      z-index: 1002;
+      animation: slideDown 0.25s ease forwards;
+    }
+    .mobile-dropdown-menu.open {
+      display: flex;
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .mobile-dropdown-menu a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .mobile-dropdown-menu a.active {
+      background: rgba(45, 75, 55, 0.1);
+      color: var(--primary-dark);
+      font-weight: 700;
+    }
+    .mobile-dropdown-menu a:hover {
+      background: rgba(45, 75, 55, 0.06);
+    }
+    .mobile-dropdown-menu .mobile-icon {
+      font-size: 18px;
+      width: 26px;
+      text-align: center;
+    }
+
+    .mobile-menu-divider {
+      height: 1px;
+      background: rgba(45, 75, 55, 0.1);
+      margin: 8px 0;
+    }
+
+    /* Main Container */
     main {
       flex: 1;
       max-width: 1280px;
@@ -250,31 +344,25 @@
     h1, h2, h3, h4 {
       font-family: var(--font-serif);
       color: var(--primary-dark);
+      word-break: break-word;
     }
-    .text-accent {
-      color: var(--accent);
-    }
-    .text-secondary {
-      color: var(--secondary);
-    }
+    .text-accent { color: var(--accent); }
+    .text-secondary { color: var(--secondary); }
 
     /* HERO SECTION */
     .hero-card {
       background: linear-gradient(135deg, rgba(45, 75, 55, 0.08) 0%, rgba(217, 119, 6, 0.08) 100%), var(--white);
       border-radius: var(--radius-xl);
       border: 1px solid rgba(45, 75, 55, 0.12);
-      padding: 64px 48px;
+      padding: 56px 44px;
       margin-bottom: 48px;
       position: relative;
       overflow: hidden;
       display: grid;
       grid-template-columns: 1.2fr 0.8fr;
-      gap: 40px;
+      gap: 36px;
       align-items: center;
       box-shadow: var(--shadow-sm);
-    }
-    @media (max-width: 900px) {
-      .hero-card { grid-template-columns: 1fr; padding: 36px 24px; }
     }
 
     .hero-badge {
@@ -287,29 +375,29 @@
       border-radius: 20px;
       font-size: 13px;
       font-weight: 700;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .hero-title {
-      font-size: 52px;
+      font-size: 48px;
       line-height: 1.15;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
     }
     .hero-subtitle {
-      font-size: 18px;
+      font-size: 17px;
       color: var(--text-muted);
-      margin-bottom: 32px;
+      margin-bottom: 28px;
       max-width: 540px;
     }
     .hero-ctas {
       display: flex;
       flex-wrap: wrap;
-      gap: 14px;
+      gap: 12px;
     }
 
     .hero-visual {
       background: var(--primary-dark);
       border-radius: var(--radius-lg);
-      padding: 32px;
+      padding: 30px;
       color: var(--oatmeal);
       box-shadow: var(--shadow-lg);
       position: relative;
@@ -317,17 +405,17 @@
     .hero-stat-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-top: 24px;
+      gap: 14px;
+      margin-top: 20px;
     }
     .hero-stat {
       background: rgba(255, 255, 255, 0.08);
-      padding: 16px;
+      padding: 14px;
       border-radius: var(--radius-md);
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
     .hero-stat-val {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
       color: #FBBF24;
       font-family: var(--font-sans);
@@ -341,23 +429,23 @@
     /* Impact Strip */
     .impact-strip {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 20px;
-      margin-bottom: 56px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-bottom: 48px;
     }
     .impact-item {
       background: var(--white);
       border: 1px solid rgba(45, 75, 55, 0.08);
       border-radius: var(--radius-md);
-      padding: 24px;
+      padding: 20px;
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
       box-shadow: var(--shadow-sm);
     }
     .impact-icon {
-      width: 48px;
-      height: 48px;
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
       background: rgba(45, 75, 55, 0.08);
       color: var(--primary);
@@ -365,9 +453,10 @@
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
+      font-size: 20px;
     }
     .impact-num {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       color: var(--primary-dark);
     }
@@ -380,28 +469,28 @@
     .section-header {
       text-align: center;
       max-width: 680px;
-      margin: 0 auto 40px;
+      margin: 0 auto 36px;
     }
     .section-header h2 {
-      font-size: 38px;
-      margin-bottom: 12px;
+      font-size: 36px;
+      margin-bottom: 10px;
     }
     .section-header p {
       color: var(--text-muted);
-      font-size: 16px;
+      font-size: 15px;
     }
 
     .features-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      margin-bottom: 64px;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 22px;
+      margin-bottom: 56px;
     }
     .feature-card {
       background: var(--white);
       border: 1px solid rgba(45, 75, 55, 0.08);
       border-radius: var(--radius-lg);
-      padding: 32px 24px;
+      padding: 28px 22px;
       box-shadow: var(--shadow-sm);
       transition: all 0.25s ease;
     }
@@ -411,19 +500,20 @@
       border-color: rgba(45, 75, 55, 0.2);
     }
     .feature-icon-box {
-      width: 52px;
-      height: 52px;
+      width: 48px;
+      height: 48px;
       border-radius: 14px;
       background: var(--primary);
       color: var(--oatmeal);
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      font-size: 22px;
     }
     .feature-card h3 {
-      font-size: 20px;
-      margin-bottom: 10px;
+      font-size: 19px;
+      margin-bottom: 8px;
     }
     .feature-card p {
       color: var(--text-muted);
@@ -435,23 +525,23 @@
     .market-filter-bar {
       display: flex;
       flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 32px;
+      gap: 14px;
+      margin-bottom: 24px;
       background: var(--white);
-      padding: 16px 20px;
+      padding: 16px;
       border-radius: var(--radius-lg);
       border: 1px solid rgba(45, 75, 55, 0.1);
       box-shadow: var(--shadow-sm);
     }
     .search-input-wrap {
       flex: 1;
-      min-width: 260px;
+      min-width: 220px;
       position: relative;
     }
     .search-input-wrap input {
       width: 100%;
       padding: 12px 16px 12px 42px;
-      border-radius: 14px;
+      border-radius: 12px;
       border: 1px solid rgba(45, 75, 55, 0.15);
       background: var(--oatmeal);
       font-family: inherit;
@@ -470,22 +560,29 @@
       color: var(--text-muted);
     }
 
+    /* Category horizontal touch scroll */
+    .category-pills-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 28px;
+      padding-bottom: 4px;
+    }
     .category-pills {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 32px;
+      width: max-content;
     }
     .cat-pill {
       background: var(--white);
       border: 1px solid rgba(45, 75, 55, 0.15);
-      padding: 8px 18px;
+      padding: 8px 16px;
       border-radius: 20px;
       font-size: 13px;
       font-weight: 600;
       color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s;
+      white-space: nowrap;
     }
     .cat-pill:hover {
       border-color: var(--primary);
@@ -500,8 +597,8 @@
 
     .products-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 28px;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 24px;
     }
     .product-card {
       background: var(--white);
@@ -518,7 +615,7 @@
       box-shadow: var(--shadow-md);
     }
     .product-img-box {
-      height: 200px;
+      height: 190px;
       position: relative;
       background: #E8ECE9;
       overflow: hidden;
@@ -534,8 +631,8 @@
     }
     .product-badge {
       position: absolute;
-      top: 14px;
-      right: 14px;
+      top: 12px;
+      right: 12px;
       background: rgba(26, 46, 33, 0.85);
       backdrop-filter: blur(4px);
       color: #FBBF24;
@@ -547,7 +644,7 @@
       text-transform: uppercase;
     }
     .product-body {
-      padding: 24px;
+      padding: 20px;
       display: flex;
       flex-direction: column;
       flex: 1;
@@ -557,11 +654,11 @@
       font-weight: 700;
       color: var(--secondary);
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
     .product-title {
-      font-size: 20px;
-      margin-bottom: 8px;
+      font-size: 19px;
+      margin-bottom: 6px;
       color: var(--primary-dark);
     }
     .product-farmer {
@@ -570,13 +667,14 @@
       gap: 6px;
       color: var(--text-muted);
       font-size: 13px;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
     }
     .product-stock {
       font-size: 13px;
       font-weight: 600;
       color: var(--primary-light);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 6px;
@@ -586,11 +684,12 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding-top: 16px;
+      padding-top: 14px;
       border-top: 1px solid rgba(45, 75, 55, 0.08);
+      gap: 8px;
     }
     .product-price-val {
-      font-size: 24px;
+      font-size: 22px;
       font-weight: 800;
       color: var(--primary-dark);
     }
@@ -600,18 +699,19 @@
       font-weight: normal;
     }
 
-    /* SELL FORM */
+    /* FORMS & CHECKOUT */
     .form-box {
       max-width: 680px;
       margin: 0 auto;
       background: var(--white);
       border-radius: var(--radius-xl);
       border: 1px solid rgba(45, 75, 55, 0.12);
-      padding: 40px;
+      padding: 36px 32px;
       box-shadow: var(--shadow-md);
+      width: 100%;
     }
     .form-group {
-      margin-bottom: 22px;
+      margin-bottom: 20px;
     }
     .form-group label {
       display: block;
@@ -622,12 +722,12 @@
     }
     .form-control {
       width: 100%;
-      padding: 13px 16px;
+      padding: 12px 14px;
       border-radius: 12px;
       border: 1px solid rgba(45, 75, 55, 0.2);
       background: var(--oatmeal);
       font-family: inherit;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text);
       outline: none;
       transition: all 0.2s;
@@ -640,49 +740,60 @@
     .calc-card {
       background: rgba(45, 75, 55, 0.06);
       border-radius: 14px;
-      padding: 18px;
+      padding: 16px 18px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
+      gap: 12px;
     }
     .calc-label {
       font-weight: 700;
       color: var(--primary);
-      font-size: 15px;
+      font-size: 14px;
     }
     .calc-val {
-      font-size: 26px;
+      font-size: 24px;
       font-weight: 800;
       color: var(--primary-dark);
+      white-space: nowrap;
+    }
+
+    /* Grid for two input columns */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
     }
 
     /* BUY CHECKOUT STEPS */
     .steps-indicator {
       display: flex;
       justify-content: center;
-      gap: 36px;
-      margin-bottom: 32px;
+      gap: 20px;
+      margin-bottom: 28px;
       position: relative;
+      flex-wrap: wrap;
     }
     .step-node {
       display: flex;
       align-items: center;
       gap: 8px;
       font-weight: 700;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
     }
     .step-circle {
-      width: 32px;
-      height: 32px;
+      width: 28px;
+      height: 28px;
       border-radius: 50%;
       background: var(--oatmeal-dark);
       color: var(--text-muted);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 13px;
+      font-size: 12px;
+      flex-shrink: 0;
     }
     .step-node.active .step-circle {
       background: var(--primary);
@@ -697,7 +808,7 @@
       background: var(--white);
       border-radius: var(--radius-lg);
       border: 1px solid rgba(45, 75, 55, 0.1);
-      padding: 24px;
+      padding: 22px;
       margin-bottom: 20px;
       box-shadow: var(--shadow-sm);
     }
@@ -708,13 +819,15 @@
       margin-bottom: 16px;
       border-bottom: 1px solid rgba(45, 75, 55, 0.08);
       padding-bottom: 14px;
+      gap: 12px;
     }
     .order-tag {
-      padding: 4px 12px;
+      padding: 4px 10px;
       border-radius: 12px;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
+      white-space: nowrap;
     }
     .tag-buy { background: rgba(217, 119, 6, 0.15); color: var(--secondary); }
     .tag-sell { background: rgba(45, 75, 55, 0.15); color: var(--primary); }
@@ -723,28 +836,35 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      padding: 6px 14px;
+      padding: 5px 12px;
       border-radius: 20px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 700;
+      white-space: nowrap;
     }
     .status-pending { background: #FEF3C7; color: #92400E; }
     .status-dispatched { background: #DBEAFE; color: #1E40AF; }
     .status-delivered { background: #DCFCE7; color: #166534; }
 
     /* Delivery Progress Track */
+    .delivery-progress-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding: 10px 0;
+      margin: 14px 0;
+    }
     .delivery-progress {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin: 24px 0 16px;
       position: relative;
+      min-width: 320px;
     }
     .delivery-progress::before {
       content: '';
       position: absolute;
-      left: 20px;
-      right: 20px;
+      left: 18px;
+      right: 18px;
       height: 4px;
       background: rgba(45, 75, 55, 0.1);
       z-index: 1;
@@ -753,10 +873,11 @@
       position: relative;
       z-index: 2;
       text-align: center;
+      flex: 1;
     }
     .prog-icon {
-      width: 38px;
-      height: 38px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: var(--white);
       border: 3px solid rgba(45, 75, 55, 0.2);
@@ -764,7 +885,7 @@
       align-items: center;
       justify-content: center;
       margin: 0 auto 6px;
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text-muted);
     }
     .prog-step.done .prog-icon {
@@ -784,28 +905,34 @@
       100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0); }
     }
     .prog-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: var(--text-muted);
+      white-space: nowrap;
     }
 
     /* TRACEABILITY */
     .trace-card {
       background: var(--white);
       border-radius: var(--radius-xl);
-      padding: 36px;
+      padding: 32px 28px;
       border: 1px solid rgba(45, 75, 55, 0.12);
       box-shadow: var(--shadow-sm);
     }
+    .trace-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      gap: 32px;
+    }
     .trace-timeline {
       position: relative;
-      padding-left: 36px;
-      margin-top: 32px;
+      padding-left: 32px;
+      margin-top: 24px;
     }
     .trace-timeline::before {
       content: '';
       position: absolute;
-      left: 14px;
+      left: 12px;
       top: 10px;
       bottom: 20px;
       width: 3px;
@@ -813,46 +940,53 @@
     }
     .trace-step {
       position: relative;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
     .trace-step-dot {
       position: absolute;
-      left: -36px;
+      left: -32px;
       top: 4px;
-      width: 28px;
-      height: 28px;
+      width: 26px;
+      height: 26px;
       border-radius: 50%;
       background: var(--primary);
       color: var(--white);
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 12px;
+      font-weight: bold;
       box-shadow: 0 0 0 4px var(--oatmeal);
     }
 
     /* TOAST NOTIFICATION */
     .toast {
       position: fixed;
-      bottom: 24px;
-      right: 24px;
+      bottom: 20px;
+      right: 20px;
+      left: 20px;
+      max-width: 400px;
+      margin-left: auto;
       background: var(--primary-dark);
       color: var(--white);
-      padding: 14px 24px;
-      border-radius: 16px;
-      font-size: 14px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      font-size: 13px;
       font-weight: 600;
       display: flex;
       align-items: center;
-      gap: 12px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
       transform: translateY(100px);
       opacity: 0;
       transition: all 0.3s ease;
       z-index: 99999;
+      pointer-events: none;
     }
     .toast.show {
       transform: translateY(0);
       opacity: 1;
+      pointer-events: auto;
     }
 
     /* MODAL */
@@ -861,10 +995,11 @@
       inset: 0;
       background: rgba(13, 30, 20, 0.65);
       backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
       z-index: 10000;
     }
     .modal-overlay.open {
@@ -873,9 +1008,9 @@
     .modal-box {
       background: var(--white);
       border-radius: var(--radius-xl);
-      max-width: 600px;
+      max-width: 580px;
       width: 100%;
-      padding: 32px;
+      padding: 28px 24px;
       box-shadow: var(--shadow-lg);
       position: relative;
       max-height: 90vh;
@@ -883,40 +1018,49 @@
     }
     .modal-close {
       position: absolute;
-      top: 20px;
-      right: 20px;
+      top: 16px;
+      right: 16px;
       background: none;
       border: none;
-      font-size: 20px;
+      font-size: 22px;
       cursor: pointer;
       color: var(--text-muted);
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+    }
+    .modal-close:hover {
+      background: rgba(45, 75, 55, 0.08);
     }
 
     /* Footer */
     footer {
       background: var(--primary-dark);
       color: var(--oatmeal);
-      padding: 60px 24px 30px;
+      padding: 48px 20px 28px;
       margin-top: auto;
     }
     .footer-grid {
       max-width: 1280px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 40px;
-      margin-bottom: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 32px;
+      margin-bottom: 36px;
     }
     .footer-col h4 {
       color: #FBBF24;
-      font-size: 18px;
-      margin-bottom: 16px;
+      font-size: 17px;
+      margin-bottom: 14px;
     }
     .footer-col ul {
       list-style: none;
     }
     .footer-col ul li {
-      margin-bottom: 10px;
+      margin-bottom: 8px;
     }
     .footer-col ul li a {
       color: rgba(245, 245, 240, 0.7);
@@ -932,10 +1076,183 @@
       max-width: 1280px;
       margin: 0 auto;
       text-align: center;
-      padding-top: 24px;
+      padding-top: 20px;
       border-top: 1px solid rgba(245, 245, 240, 0.1);
-      font-size: 13px;
+      font-size: 12px;
       color: rgba(245, 245, 240, 0.5);
+    }
+
+    /* ==========================================================
+       RESPONSIVE BREAKPOINTS (Mobile & Tablet Optimization)
+       ========================================================== */
+    @media (max-width: 992px) {
+      /* Hide desktop horizontal links */
+      .nav-links {
+        display: none;
+      }
+      /* Show mobile hamburger */
+      .mobile-menu-toggle {
+        display: flex;
+      }
+      
+      .hero-card {
+        grid-template-columns: 1fr;
+        padding: 36px 24px;
+        gap: 28px;
+      }
+      .hero-title {
+        font-size: 38px;
+      }
+      
+      .trace-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 680px) {
+      /* Header adjustments */
+      .nav-container {
+        padding: 10px 14px;
+      }
+      .brand-text {
+        font-size: 19px;
+      }
+      .brand-icon {
+        width: 32px;
+        height: 32px;
+      }
+      .btn-primary.header-dash-btn {
+        display: none; /* Accessible from mobile menu */
+      }
+      
+      /* Main container padding */
+      main {
+        padding: 20px 14px 50px;
+      }
+
+      /* Hero section */
+      .hero-card {
+        padding: 28px 18px;
+        border-radius: var(--radius-lg);
+      }
+      .hero-title {
+        font-size: 29px;
+        line-height: 1.2;
+      }
+      .hero-subtitle {
+        font-size: 15px;
+        margin-bottom: 22px;
+      }
+      .hero-ctas {
+        flex-direction: column;
+        width: 100%;
+      }
+      .hero-ctas button {
+        width: 100%;
+        justify-content: center;
+      }
+      .hero-visual {
+        padding: 20px 16px;
+      }
+      .hero-stat-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .hero-stat {
+        padding: 10px;
+      }
+      .hero-stat-val {
+        font-size: 22px;
+      }
+
+      /* Form elements & Grids */
+      .form-box {
+        padding: 24px 18px;
+        border-radius: var(--radius-lg);
+      }
+      .two-col-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0;
+      }
+
+      /* Market Filters */
+      .market-filter-bar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+      }
+      .search-input-wrap {
+        min-width: 100%;
+      }
+      #priceSort {
+        width: 100% !important;
+      }
+
+      /* Orders Dashboard */
+      .order-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .order-card {
+        padding: 16px;
+      }
+      .order-destination-strip {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 12px;
+      }
+      .order-action-buttons {
+        width: 100%;
+        display: flex;
+        gap: 8px;
+      }
+      .order-action-buttons button {
+        flex: 1;
+        justify-content: center;
+      }
+
+      /* Stepper Indicator */
+      .steps-indicator {
+        gap: 12px;
+      }
+      .step-node span {
+        font-size: 12px;
+      }
+
+      /* Traceability */
+      .trace-card {
+        padding: 22px 16px;
+        border-radius: var(--radius-lg);
+      }
+      .trace-search-form {
+        flex-direction: column !important;
+      }
+      .trace-search-form button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Dashboard Profile */
+      .dash-profile-header {
+        flex-direction: column;
+        text-align: center;
+      }
+      .dash-stats-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .dash-actions-row {
+        flex-direction: column;
+      }
+      .dash-actions-row button {
+        width: 100%;
+        justify-content: center;
+      }
+
+      /* Modal Box */
+      .modal-box {
+        padding: 22px 16px;
+        border-radius: var(--radius-lg);
+      }
     }
   </style>
 </head>
@@ -946,13 +1263,13 @@
   <!-- Top Demo Bar with Persona Switcher & Fast Reset -->
   <div class="demo-bar">
     <div>
-      🌾 <strong>MilletConnect Standalone Preview</strong> &nbsp;|&nbsp;
-      Role: <strong id="currentPersonaName" style="color:#FBBF24;">Ramesh Patil (Farmer)</strong>
+      🌾 <strong>MilletConnect Preview</strong> &nbsp;|&nbsp;
+      <span id="currentPersonaName" style="color:#FBBF24;">Ramesh Patil (Farmer)</span>
     </div>
     <div style="display:flex; gap:12px; align-items:center;">
       <button onclick="openRoleModal()">Switch Role ▾</button>
       <span>•</span>
-      <button onclick="resetDemoData()">Reset Demo Data</button>
+      <button onclick="resetDemoData()">Reset Demo</button>
     </div>
   </div>
 
@@ -961,7 +1278,7 @@
     <div class="nav-container">
       <div class="brand" onclick="navigate('home')">
         <div class="brand-icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
             <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
             <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
           </svg>
@@ -969,6 +1286,7 @@
         <span class="brand-text">MilletConnect</span>
       </div>
 
+      <!-- Desktop Nav -->
       <nav>
         <ul class="nav-links">
           <li><a id="nav-home" class="active" onclick="navigate('home')">Home</a></li>
@@ -980,16 +1298,57 @@
         </ul>
       </nav>
 
+      <!-- Nav Actions -->
       <div class="nav-actions">
         <button class="lang-btn" onclick="cycleLanguage()" id="langBtn" title="Switch Language">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
           <span id="langLabel">EN</span>
         </button>
 
-        <button class="btn-primary" onclick="navigate('dashboard')" id="dashboardBtn">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
+        <button class="btn-primary header-dash-btn" onclick="navigate('dashboard')" id="dashboardBtn">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="7" r="4"/><path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg>
           Dashboard
         </button>
+
+        <!-- Mobile Menu Toggle Button (Hamburger) -->
+        <button class="mobile-menu-toggle" id="menuToggleBtn" onclick="toggleMobileMenu()" aria-label="Toggle Navigation Menu">
+          <svg id="hamburgerIcon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- Mobile Dropdown Navigation Menu -->
+      <div class="mobile-dropdown-menu" id="mobileDropdown">
+        <a id="mnav-home" class="active" onclick="mobileNavigate('home')">
+          <span class="mobile-icon">🏠</span> Home
+        </a>
+        <a id="mnav-marketplace" onclick="mobileNavigate('marketplace')">
+          <span class="mobile-icon">🛒</span> Marketplace
+        </a>
+        <a id="mnav-sell" onclick="mobileNavigate('sell')">
+          <span class="mobile-icon">🌾</span> Sell Produce
+        </a>
+        <a id="mnav-orders" onclick="mobileNavigate('orders')">
+          <span class="mobile-icon">📦</span> Orders & Delivery
+        </a>
+        <a id="mnav-traceability" onclick="mobileNavigate('traceability')">
+          <span class="mobile-icon">🔍</span> Traceability Engine
+        </a>
+        <a id="mnav-awareness" onclick="mobileNavigate('awareness')">
+          <span class="mobile-icon">📚</span> Awareness Hub
+        </a>
+        
+        <div class="mobile-menu-divider"></div>
+
+        <a id="mnav-dashboard" onclick="mobileNavigate('dashboard')" style="background:rgba(45,75,55,0.06); font-weight:700;">
+          <span class="mobile-icon">👤</span> My User Dashboard
+        </a>
+        <a onclick="closeMobileMenu(); openRoleModal();">
+          <span class="mobile-icon">🎭</span> Switch Role / Persona
+        </a>
       </div>
     </div>
   </header>
@@ -1023,8 +1382,8 @@
         </div>
 
         <div class="hero-visual">
-          <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:14px;">
-            <div style="font-weight:700; font-size:16px;">🌱 Live Ecosystem Pulse</div>
+          <div style="display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:12px;">
+            <div style="font-weight:700; font-size:15px;">🌱 Live Ecosystem Pulse</div>
             <span style="font-size:12px; color:#34D399; font-weight:700;">● Active</span>
           </div>
 
@@ -1035,7 +1394,7 @@
             </div>
             <div class="hero-stat">
               <div class="hero-stat-val">₹ 4.8 Cr</div>
-              <div class="hero-stat-lbl">Direct Farmer Value Traded</div>
+              <div class="hero-stat-lbl">Direct Value Traded</div>
             </div>
             <div class="hero-stat">
               <div class="hero-stat-val">3,890 MT</div>
@@ -1047,7 +1406,7 @@
             </div>
           </div>
 
-          <div style="margin-top:20px; font-size:13px; color:rgba(255,255,255,0.7); background:rgba(255,255,255,0.06); padding:12px 16px; border-radius:12px;">
+          <div style="margin-top:16px; font-size:12px; color:rgba(255,255,255,0.75); background:rgba(255,255,255,0.06); padding:10px 14px; border-radius:12px; line-height:1.5;">
             🌾 <strong>Recent Trade:</strong> Ramesh Patil sold 250 kg Pearl Millet to Annapurna SHG (Nanded).
           </div>
         </div>
@@ -1117,10 +1476,10 @@
 
     <!-- ================= 2. MARKETPLACE SECTION ================= -->
     <section id="page-marketplace" class="page-section">
-      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:28px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; flex-wrap:wrap; gap:14px;">
         <div>
-          <h1 style="font-size:42px; margin-bottom:6px;">Millet Marketplace</h1>
-          <p style="color:var(--text-muted);">Sourced directly from verified farmers across India with organic verification.</p>
+          <h1 style="font-size:36px; margin-bottom:6px;">Millet Marketplace</h1>
+          <p style="color:var(--text-muted); font-size:14px;">Sourced directly from verified farmers across India with organic verification.</p>
         </div>
         <button class="btn-primary" onclick="navigate('sell')">
           + Add Sell Listing
@@ -1131,7 +1490,7 @@
       <div class="market-filter-bar">
         <div class="search-input-wrap">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-          <input type="text" id="marketSearch" placeholder="Search by millet type, farmer name, or location..." oninput="filterProducts()">
+          <input type="text" id="marketSearch" placeholder="Search by millet, farmer, or city..." oninput="filterProducts()">
         </div>
         <select class="form-control" style="width:200px;" id="priceSort" onchange="filterProducts()">
           <option value="featured">Featured First</option>
@@ -1141,13 +1500,15 @@
         </select>
       </div>
 
-      <!-- Categories Pills -->
-      <div class="category-pills">
-        <div class="cat-pill active" onclick="setCategory('All', this)">All Grains</div>
-        <div class="cat-pill" onclick="setCategory('Raw Millets', this)">Raw Millets</div>
-        <div class="cat-pill" onclick="setCategory('Processed Flour', this)">Flour / Atta</div>
-        <div class="cat-pill" onclick="setCategory('Millet Snacks', this)">Value-Added Snacks</div>
-        <div class="cat-pill" onclick="setCategory('Organic', this)">100% Certified Organic</div>
+      <!-- Categories Pills (Smooth Horizontal Touch Scroll) -->
+      <div class="category-pills-wrap">
+        <div class="category-pills">
+          <div class="cat-pill active" onclick="setCategory('All', this)">All Grains</div>
+          <div class="cat-pill" onclick="setCategory('Raw Millets', this)">Raw Millets</div>
+          <div class="cat-pill" onclick="setCategory('Processed Flour', this)">Flour / Atta</div>
+          <div class="cat-pill" onclick="setCategory('Millet Snacks', this)">Value-Added Snacks</div>
+          <div class="cat-pill" onclick="setCategory('Organic', this)">100% Certified Organic</div>
+        </div>
       </div>
 
       <!-- Product Cards Container -->
@@ -1159,9 +1520,9 @@
     <!-- ================= 3. SELL PRODUCE SECTION ================= -->
     <section id="page-sell" class="page-section">
       <div class="form-box">
-        <div style="text-align:center; margin-bottom:28px;">
-          <h1 style="font-size:36px; margin-bottom:8px;">Place Your Sell Order</h1>
-          <p style="color:var(--text-muted); font-size:15px;">List your harvest lots for sale on the national millet marketplace.</p>
+        <div style="text-align:center; margin-bottom:24px;">
+          <h1 style="font-size:32px; margin-bottom:8px;">Place Your Sell Order</h1>
+          <p style="color:var(--text-muted); font-size:14px;">List your harvest lots for sale on the national millet marketplace.</p>
         </div>
 
         <form id="sellForm" onsubmit="handleSellSubmit(event)">
@@ -1185,7 +1546,7 @@
             <input type="text" id="customMilletName" class="form-control" placeholder="e.g. Organic Little Ragi Special">
           </div>
 
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+          <div class="two-col-grid">
             <div class="form-group">
               <label for="sellVolume">Volume Available (kg)</label>
               <input type="number" id="sellVolume" class="form-control" placeholder="e.g. 500" min="1" step="0.5" required oninput="calculateSellTotal()">
@@ -1210,7 +1571,7 @@
             <div class="calc-val" id="sellTotalDisplay">₹0.00</div>
           </div>
 
-          <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:16px; font-size:16px;">
+          <button type="submit" class="btn-primary" style="width:100%; justify-content:center; padding:15px; font-size:15px;">
             Publish Sell Listing to Marketplace →
           </button>
         </form>
@@ -1224,20 +1585,20 @@
         <div class="steps-indicator">
           <div class="step-node active" id="bstep-1">
             <div class="step-circle">1</div>
-            <span>Select Quantity</span>
+            <span>Quantity</span>
           </div>
           <div class="step-node" id="bstep-2">
             <div class="step-circle">2</div>
-            <span>Delivery Address</span>
+            <span>Address</span>
           </div>
           <div class="step-node" id="bstep-3">
             <div class="step-circle">3</div>
-            <span>Payment & Confirm</span>
+            <span>Payment</span>
           </div>
         </div>
 
         <!-- Selected Product Summary Header -->
-        <div id="buyProductHeader" style="background:var(--oatmeal); border-radius:16px; padding:16px 20px; display:flex; align-items:center; gap:16px; margin-bottom:28px;">
+        <div id="buyProductHeader" style="background:var(--oatmeal); border-radius:16px; padding:16px; display:flex; align-items:center; gap:14px; margin-bottom:24px; flex-wrap:wrap;">
           <!-- Populated by JS -->
         </div>
 
@@ -1258,7 +1619,7 @@
           </div>
 
           <div style="display:flex; justify-content:flex-end;">
-            <button class="btn-primary" onclick="goToBuyStep(2)">
+            <button class="btn-primary" style="width:100%;" onclick="goToBuyStep(2)">
               Proceed to Delivery Address →
             </button>
           </div>
@@ -1270,7 +1631,7 @@
             <label for="buyerName">Recipient Full Name</label>
             <input type="text" id="buyerName" class="form-control" value="Savita Agro Traders" required>
           </div>
-          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:16px;">
+          <div class="two-col-grid">
             <div class="form-group">
               <label for="buyerPhone">Contact Phone Number</label>
               <input type="tel" id="buyerPhone" class="form-control" value="+91 98220 12345" required>
@@ -1285,33 +1646,33 @@
             <textarea id="buyerAddress" class="form-control" rows="3" placeholder="Plot No, Street, Landmark, District, State" required>Warehouse Plot 14, APMC Market Road, Nanded District, MH</textarea>
           </div>
 
-          <div style="display:flex; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; gap:12px;">
             <button class="btn-secondary" onclick="goToBuyStep(1)">← Back</button>
-            <button class="btn-primary" onclick="goToBuyStep(3)">Proceed to Payment →</button>
+            <button class="btn-primary" onclick="goToBuyStep(3)">Next: Payment →</button>
           </div>
         </div>
 
         <!-- Step 3: Payment -->
         <div id="buyStep3" style="display:none;">
-          <h3 style="margin-bottom:16px;">Choose Payment Method</h3>
-          <div style="display:flex; flex-direction:column; gap:12px; margin-bottom:24px;">
-            <label style="display:flex; align-items:center; gap:12px; padding:16px; border:1px solid rgba(45,75,55,0.2); border-radius:12px; cursor:pointer; background:var(--oatmeal);">
+          <h3 style="margin-bottom:14px; font-size:20px;">Choose Payment Method</h3>
+          <div style="display:flex; flex-direction:column; gap:10px; margin-bottom:20px;">
+            <label style="display:flex; align-items:center; gap:12px; padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:12px; cursor:pointer; background:var(--oatmeal);">
               <input type="radio" name="payMethod" value="cod" checked>
               <div>
-                <strong>Cash on Delivery (Pay at Mandi / Unloading)</strong>
+                <strong style="font-size:14px;">Cash on Delivery (Pay at Mandi / Unloading)</strong>
                 <div style="font-size:12px; color:var(--text-muted);">Inspect quality and grain moisture before settlement.</div>
               </div>
             </label>
-            <label style="display:flex; align-items:center; gap:12px; padding:16px; border:1px solid rgba(45,75,55,0.2); border-radius:12px; cursor:pointer; background:var(--oatmeal);">
+            <label style="display:flex; align-items:center; gap:12px; padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:12px; cursor:pointer; background:var(--oatmeal);">
               <input type="radio" name="payMethod" value="upi">
               <div>
-                <strong>Instant UPI / Net Banking (Prepaid Escrow)</strong>
+                <strong style="font-size:14px;">Instant UPI / Net Banking (Prepaid Escrow)</strong>
                 <div style="font-size:12px; color:var(--text-muted);">Protected by MilletConnect smart escrow settlement protocol.</div>
               </div>
             </label>
           </div>
 
-          <div class="calc-card" style="margin-bottom:28px;">
+          <div class="calc-card" style="margin-bottom:24px;">
             <div>
               <div class="calc-label">Total Payable</div>
               <div style="font-size:12px; color:var(--text-muted);" id="deliveryFeeNotice">Includes free logistics aggregation</div>
@@ -1319,10 +1680,10 @@
             <div class="calc-val" id="finalPayableDisplay">₹0.00</div>
           </div>
 
-          <div style="display:flex; justify-content:space-between;">
+          <div style="display:flex; justify-content:space-between; gap:12px;">
             <button class="btn-secondary" onclick="goToBuyStep(2)">← Back</button>
             <button class="btn-primary" style="background:var(--accent);" onclick="confirmPlaceOrder()">
-              ✓ Place & Confirm Buy Order
+              ✓ Place Order
             </button>
           </div>
         </div>
@@ -1331,31 +1692,31 @@
 
     <!-- ================= 5. ORDERS & DELIVERY DASHBOARD ================= -->
     <section id="page-orders" class="page-section">
-      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px;">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:24px; flex-wrap:wrap; gap:14px;">
         <div>
-          <h1 style="font-size:40px; margin-bottom:6px;">Order & Delivery Management</h1>
-          <p style="color:var(--text-muted);">Real-time tracking of procurement, transit milestones, and sell listings.</p>
+          <h1 style="font-size:36px; margin-bottom:6px;">Order & Delivery Hub</h1>
+          <p style="color:var(--text-muted); font-size:14px;">Real-time tracking of procurement, transit milestones, and sell listings.</p>
         </div>
-        <div style="display:flex; gap:10px;">
-          <button class="btn-secondary" onclick="filterOrderTab('all', this)" id="tab-all" style="background:var(--primary); color:var(--white);">All Orders</button>
-          <button class="btn-secondary" onclick="filterOrderTab('buy', this)" id="tab-buy">My Purchases</button>
-          <button class="btn-secondary" onclick="filterOrderTab('sell', this)" id="tab-sell">My Sell Listings</button>
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+          <button class="btn-secondary" onclick="filterOrderTab('all', this)" id="tab-all" style="background:var(--primary); color:var(--white);">All</button>
+          <button class="btn-secondary" onclick="filterOrderTab('buy', this)" id="tab-buy">Purchases</button>
+          <button class="btn-secondary" onclick="filterOrderTab('sell', this)" id="tab-sell">Sales</button>
         </div>
       </div>
 
       <!-- Quick Metrics -->
-      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap:16px; margin-bottom:32px;">
-        <div style="background:var(--white); padding:20px; border-radius:16px; border:1px solid rgba(45,75,55,0.1);">
-          <div style="font-size:13px; color:var(--text-muted);">Active Orders</div>
-          <div style="font-size:28px; font-weight:800; color:var(--primary);" id="activeOrdersCount">0</div>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:14px; margin-bottom:28px;">
+        <div style="background:var(--white); padding:18px; border-radius:14px; border:1px solid rgba(45,75,55,0.1);">
+          <div style="font-size:12px; color:var(--text-muted);">Active Orders</div>
+          <div style="font-size:26px; font-weight:800; color:var(--primary);" id="activeOrdersCount">0</div>
         </div>
-        <div style="background:var(--white); padding:20px; border-radius:16px; border:1px solid rgba(45,75,55,0.1);">
-          <div style="font-size:13px; color:var(--text-muted);">Total Millet Volume</div>
-          <div style="font-size:28px; font-weight:800; color:var(--secondary);" id="totalVolumeCount">0 kg</div>
+        <div style="background:var(--white); padding:18px; border-radius:14px; border:1px solid rgba(45,75,55,0.1);">
+          <div style="font-size:12px; color:var(--text-muted);">Total Volume</div>
+          <div style="font-size:26px; font-weight:800; color:var(--secondary);" id="totalVolumeCount">0 kg</div>
         </div>
-        <div style="background:var(--white); padding:20px; border-radius:16px; border:1px solid rgba(45,75,55,0.1);">
-          <div style="font-size:13px; color:var(--text-muted);">Total Order Value</div>
-          <div style="font-size:28px; font-weight:800; color:var(--accent);" id="totalAmountCount">₹0</div>
+        <div style="background:var(--white); padding:18px; border-radius:14px; border:1px solid rgba(45,75,55,0.1);">
+          <div style="font-size:12px; color:var(--text-muted);">Total Value</div>
+          <div style="font-size:26px; font-weight:800; color:var(--accent);" id="totalAmountCount">₹0</div>
         </div>
       </div>
 
@@ -1368,21 +1729,21 @@
     <!-- ================= 6. TRACEABILITY SECTION ================= -->
     <section id="page-traceability" class="page-section">
       <div class="section-header">
-        <h1 style="font-size:42px; margin-bottom:8px;">Farm-to-Fork Traceability</h1>
+        <h1 style="font-size:36px; margin-bottom:8px;">Farm-to-Fork Traceability</h1>
         <p>Verify harvest origin, soil certification, quality grading, and transport verification.</p>
       </div>
 
       <!-- Tracking Search Box -->
-      <div class="trace-card" style="max-width:720px; margin:0 auto 40px;">
-        <form onsubmit="handleTraceSearch(event)" style="display:flex; gap:12px;">
+      <div class="trace-card" style="max-width:720px; margin:0 auto 36px;">
+        <form onsubmit="handleTraceSearch(event)" class="trace-search-form" style="display:flex; gap:10px;">
           <input type="text" id="traceSearchInput" class="form-control" placeholder="Enter Batch ID (e.g. MIL-RAJ-1024 or MIL-MH-8821)" value="MIL-RAJ-1024" required>
           <button type="submit" class="btn-primary" style="flex-shrink:0;">
             Verify Lot Origin
           </button>
         </form>
 
-        <div style="margin-top:14px; font-size:13px; color:var(--text-muted); display:flex; align-items:center; gap:8px;">
-          <span>Try quick sample IDs:</span>
+        <div style="margin-top:12px; font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+          <span>Sample batch IDs:</span>
           <a style="color:var(--primary); font-weight:700; cursor:pointer;" onclick="quickTrace('MIL-RAJ-1024')">MIL-RAJ-1024</a>
           <span>•</span>
           <a style="color:var(--primary); font-weight:700; cursor:pointer;" onclick="quickTrace('MIL-MH-8821')">MIL-MH-8821</a>
@@ -1391,16 +1752,16 @@
 
       <!-- Trace Details Result -->
       <div id="traceResultCard" class="trace-card" style="max-width:920px; margin:0 auto; display:none;">
-        <div style="display:grid; grid-template-columns:1fr 1.6fr; gap:36px;">
+        <div class="trace-grid">
           <div>
-            <div style="border-radius:16px; overflow:hidden; height:200px; margin-bottom:20px; background:#e0e7e2;">
+            <div style="border-radius:14px; overflow:hidden; height:180px; margin-bottom:16px; background:#e0e7e2;">
               <img id="traceImg" src="" style="width:100%; height:100%; object-fit:cover;">
             </div>
-            <div class="product-badge" style="position:static; display:inline-block; margin-bottom:10px;" id="traceGrade">Premium Grade A+</div>
-            <h3 style="font-size:24px; margin-bottom:6px;" id="traceCropName">Organic Pearl Millet</h3>
-            <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;" id="traceBatchId">Batch ID: MIL-RAJ-1024</p>
+            <div class="product-badge" style="position:static; display:inline-block; margin-bottom:8px;" id="traceGrade">Premium Grade A+</div>
+            <h3 style="font-size:22px; margin-bottom:4px;" id="traceCropName">Organic Pearl Millet</h3>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;" id="traceBatchId">Batch ID: MIL-RAJ-1024</p>
             
-            <div style="background:var(--oatmeal); padding:16px; border-radius:12px; font-size:13px; line-height:1.7;">
+            <div style="background:var(--oatmeal); padding:14px; border-radius:12px; font-size:13px; line-height:1.7;">
               <div><strong>Farmer:</strong> <span id="traceFarmer">Ramesh Singh</span></div>
               <div><strong>Region:</strong> <span id="traceLocation">Bikaner, Rajasthan</span></div>
               <div><strong>Moisture:</strong> <span id="traceMoisture">10.4% (Optimal)</span></div>
@@ -1409,7 +1770,7 @@
           </div>
 
           <div>
-            <h3 style="font-size:22px; margin-bottom:20px;">Audited Journey Milestones</h3>
+            <h3 style="font-size:20px; margin-bottom:16px;">Audited Journey Milestones</h3>
             <div class="trace-timeline" id="traceTimeline">
               <!-- Steps rendered dynamically -->
             </div>
@@ -1421,47 +1782,47 @@
     <!-- ================= 7. AWARENESS HUB ================= -->
     <section id="page-awareness" class="page-section">
       <div class="section-header">
-        <h1 style="font-size:42px; margin-bottom:8px;">The Millet Awareness Hub</h1>
+        <h1 style="font-size:36px; margin-bottom:8px;">The Millet Awareness Hub</h1>
         <p>Your comprehensive guide to cultivating, consuming, and capitalizing on the superfood of the future.</p>
       </div>
 
       <!-- Quick Comparison Table -->
-      <div style="background:var(--white); border-radius:var(--radius-lg); padding:32px; border:1px solid rgba(45,75,55,0.1); margin-bottom:48px; box-shadow:var(--shadow-sm);">
-        <h3 style="font-size:22px; margin-bottom:16px;">Millets vs. Common Cereals: Superfood Matrix</h3>
-        <div style="overflow-x:auto;">
-          <table style="width:100%; border-collapse:collapse; text-align:left; font-size:14px;">
+      <div style="background:var(--white); border-radius:var(--radius-lg); padding:24px 18px; border:1px solid rgba(45,75,55,0.1); margin-bottom:40px; box-shadow:var(--shadow-sm);">
+        <h3 style="font-size:20px; margin-bottom:14px;">Millets vs. Common Cereals: Superfood Matrix</h3>
+        <div style="overflow-x:auto; -webkit-overflow-scrolling:touch;">
+          <table style="width:100%; min-width:540px; border-collapse:collapse; text-align:left; font-size:13px;">
             <thead>
               <tr style="background:rgba(45,75,55,0.06); border-bottom:2px solid rgba(45,75,55,0.15);">
-                <th style="padding:14px;">Parameter</th>
-                <th style="padding:14px; color:var(--primary); font-weight:800;">Millets (Ragi/Bajra)</th>
-                <th style="padding:14px;">Paddy (Rice)</th>
-                <th style="padding:14px;">Wheat</th>
+                <th style="padding:12px 10px;">Parameter</th>
+                <th style="padding:12px 10px; color:var(--primary); font-weight:800;">Millets (Ragi/Bajra)</th>
+                <th style="padding:12px 10px;">Paddy (Rice)</th>
+                <th style="padding:12px 10px;">Wheat</th>
               </tr>
             </thead>
             <tbody>
               <tr style="border-bottom:1px solid rgba(45,75,55,0.08);">
-                <td style="padding:12px 14px; font-weight:600;">Water Required / kg</td>
-                <td style="padding:12px 14px; color:var(--primary); font-weight:700;">300 – 400 Liters (Very Low)</td>
-                <td style="padding:12px 14px;">3,000 – 5,000 Liters</td>
-                <td style="padding:12px 14px;">1,500 – 2,000 Liters</td>
+                <td style="padding:10px; font-weight:600;">Water / kg</td>
+                <td style="padding:10px; color:var(--primary); font-weight:700;">300 – 400 L (Very Low)</td>
+                <td style="padding:10px;">3,000 – 5,000 L</td>
+                <td style="padding:10px;">1,500 – 2,000 L</td>
               </tr>
               <tr style="border-bottom:1px solid rgba(45,75,55,0.08);">
-                <td style="padding:12px 14px; font-weight:600;">Dietary Fiber</td>
-                <td style="padding:12px 14px; color:var(--primary); font-weight:700;">8.5 – 12.5%</td>
-                <td style="padding:12px 14px;">0.2%</td>
-                <td style="padding:12px 14px;">1.2%</td>
+                <td style="padding:10px; font-weight:600;">Dietary Fiber</td>
+                <td style="padding:10px; color:var(--primary); font-weight:700;">8.5 – 12.5%</td>
+                <td style="padding:10px;">0.2%</td>
+                <td style="padding:10px;">1.2%</td>
               </tr>
               <tr style="border-bottom:1px solid rgba(45,75,55,0.08);">
-                <td style="padding:12px 14px; font-weight:600;">Glycemic Index (GI)</td>
-                <td style="padding:12px 14px; color:var(--primary); font-weight:700;">Low (&lt; 55) - Diabetic Friendly</td>
-                <td style="padding:12px 14px;">High (&gt; 75)</td>
-                <td style="padding:12px 14px;">Medium (65)</td>
+                <td style="padding:10px; font-weight:600;">Glycemic Index</td>
+                <td style="padding:10px; color:var(--primary); font-weight:700;">Low (&lt; 55) - Diabetic Friendly</td>
+                <td style="padding:10px;">High (&gt; 75)</td>
+                <td style="padding:10px;">Medium (65)</td>
               </tr>
               <tr>
-                <td style="padding:12px 14px; font-weight:600;">Climate Resilience</td>
-                <td style="padding:12px 14px; color:var(--primary); font-weight:700;">Thrives in drought & arid soils</td>
-                <td style="padding:12px 14px;">Vulnerable to flood/drought</td>
-                <td style="padding:12px 14px;">Temperature sensitive</td>
+                <td style="padding:10px; font-weight:600;">Climate Resilience</td>
+                <td style="padding:10px; color:var(--primary); font-weight:700;">Thrives in drought & arid soils</td>
+                <td style="padding:10px;">Vulnerable to flood/drought</td>
+                <td style="padding:10px;">Temperature sensitive</td>
               </tr>
             </tbody>
           </table>
@@ -1471,33 +1832,33 @@
       <!-- Articles Grid -->
       <div class="features-grid">
         <div class="feature-card" style="cursor:pointer;" onclick="openArticleModal(1)">
-          <div style="height:160px; border-radius:12px; overflow:hidden; margin-bottom:16px;">
+          <div style="height:150px; border-radius:12px; overflow:hidden; margin-bottom:14px;">
             <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&q=80&w=600" style="width:100%; height:100%; object-fit:cover;">
           </div>
-          <span style="font-size:12px; font-weight:700; color:var(--secondary);">NUTRITION</span>
-          <h3 style="margin-top:6px;">Why Millets are India's Future Superfood</h3>
-          <p style="margin-top:8px;">Rich in essential micronutrients, magnesium, and dietary fiber that support metabolic and heart health.</p>
-          <div style="margin-top:14px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
+          <span style="font-size:11px; font-weight:700; color:var(--secondary);">NUTRITION</span>
+          <h3 style="margin-top:4px;">Why Millets are India's Future Superfood</h3>
+          <p style="margin-top:6px;">Rich in essential micronutrients, magnesium, and dietary fiber that support metabolic and heart health.</p>
+          <div style="margin-top:12px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
         </div>
 
         <div class="feature-card" style="cursor:pointer;" onclick="openArticleModal(2)">
-          <div style="height:160px; border-radius:12px; overflow:hidden; margin-bottom:16px;">
+          <div style="height:150px; border-radius:12px; overflow:hidden; margin-bottom:14px;">
             <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=600" style="width:100%; height:100%; object-fit:cover;">
           </div>
-          <span style="font-size:12px; font-weight:700; color:var(--secondary);">AGRONOMY</span>
-          <h3 style="margin-top:6px;">Climate Smart Farming with Shree Anna</h3>
-          <p style="margin-top:8px;">How millet crops protect topsoil, conserve groundwater, and generate resilient yields in rainfed districts.</p>
-          <div style="margin-top:14px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
+          <span style="font-size:11px; font-weight:700; color:var(--secondary);">AGRONOMY</span>
+          <h3 style="margin-top:4px;">Climate Smart Farming with Shree Anna</h3>
+          <p style="margin-top:6px;">How millet crops protect topsoil, conserve groundwater, and generate resilient yields in rainfed districts.</p>
+          <div style="margin-top:12px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
         </div>
 
         <div class="feature-card" style="cursor:pointer;" onclick="openArticleModal(3)">
-          <div style="height:160px; border-radius:12px; overflow:hidden; margin-bottom:16px;">
+          <div style="height:150px; border-radius:12px; overflow:hidden; margin-bottom:14px;">
             <img src="https://images.unsplash.com/photo-1501265976582-c1e1b0bbaf63?auto=format&fit=crop&q=80&w=600" style="width:100%; height:100%; object-fit:cover;">
           </div>
-          <span style="font-size:12px; font-weight:700; color:var(--secondary);">CULINARY</span>
-          <h3 style="margin-top:6px;">Traditional Recipes Modernized</h3>
-          <p style="margin-top:8px;">From nutritious Ragi Dosa to crispy Bajra crackers, explore delicious and high-protein kitchen staples.</p>
-          <div style="margin-top:14px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
+          <span style="font-size:11px; font-weight:700; color:var(--secondary);">CULINARY</span>
+          <h3 style="margin-top:4px;">Traditional Recipes Modernized</h3>
+          <p style="margin-top:6px;">From nutritious Ragi Dosa to crispy Bajra crackers, explore delicious and high-protein kitchen staples.</p>
+          <div style="margin-top:12px; font-weight:700; color:var(--primary); font-size:13px;">Read Full Insight →</div>
         </div>
       </div>
     </section>
@@ -1505,49 +1866,49 @@
     <!-- ================= 8. DASHBOARD / USER PROFILE ================= -->
     <section id="page-dashboard" class="page-section">
       <div style="max-width:860px; margin:0 auto;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:28px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:24px; flex-wrap:wrap; gap:12px;">
           <div>
-            <h1 style="font-size:38px;">User Dashboard</h1>
-            <p style="color:var(--text-muted);">Manage your ecosystem credentials, listings, and delivery assignments.</p>
+            <h1 style="font-size:34px;">User Dashboard</h1>
+            <p style="color:var(--text-muted); font-size:14px;">Manage your ecosystem credentials, listings, and delivery assignments.</p>
           </div>
           <button class="btn-secondary" onclick="openRoleModal()">
             Change Persona
           </button>
         </div>
 
-        <div style="background:var(--white); border-radius:var(--radius-xl); padding:36px; border:1px solid rgba(45,75,55,0.12); box-shadow:var(--shadow-sm); margin-bottom:32px;">
-          <div style="display:flex; align-items:center; gap:20px; margin-bottom:28px; padding-bottom:24px; border-bottom:1px solid rgba(45,75,55,0.08);">
-            <div style="width:68px; height:68px; border-radius:50%; background:var(--primary); color:var(--oatmeal); display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:700;">
+        <div style="background:var(--white); border-radius:var(--radius-xl); padding:28px 22px; border:1px solid rgba(45,75,55,0.12); box-shadow:var(--shadow-sm); margin-bottom:28px;">
+          <div class="dash-profile-header" style="display:flex; align-items:center; gap:16px; margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid rgba(45,75,55,0.08);">
+            <div style="width:62px; height:62px; border-radius:50%; background:var(--primary); color:var(--oatmeal); display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:700; flex-shrink:0;">
               <span id="userAvatar">RP</span>
             </div>
             <div>
-              <h2 style="font-size:26px;" id="dashUserName">Ramesh Patil</h2>
+              <h2 style="font-size:24px;" id="dashUserName">Ramesh Patil</h2>
               <div style="color:var(--secondary); font-weight:700; font-size:14px;" id="dashUserRole">Verified Primary Producer (Farmer)</div>
               <div style="font-size:13px; color:var(--text-muted);" id="dashUserLocation">📍 Nanded District, Maharashtra</div>
             </div>
           </div>
 
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:14px;">
-            <div style="background:var(--oatmeal); padding:16px; border-radius:12px;">
-              <div style="color:var(--text-muted); font-size:12px;">ACCOUNT EMAIL</div>
+          <div class="dash-stats-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:14px; font-size:13px;">
+            <div style="background:var(--oatmeal); padding:14px; border-radius:12px;">
+              <div style="color:var(--text-muted); font-size:11px;">ACCOUNT EMAIL</div>
               <strong id="dashUserEmail">ramesh.patil@milletconnect.org</strong>
             </div>
-            <div style="background:var(--oatmeal); padding:16px; border-radius:12px;">
-              <div style="color:var(--text-muted); font-size:12px;">VERIFICATION STATUS</div>
+            <div style="background:var(--oatmeal); padding:14px; border-radius:12px;">
+              <div style="color:var(--text-muted); font-size:11px;">VERIFICATION STATUS</div>
               <strong style="color:#166534;">✓ Aadhaar & Land Record KYC Passed</strong>
             </div>
-            <div style="background:var(--oatmeal); padding:16px; border-radius:12px;">
-              <div style="color:var(--text-muted); font-size:12px;">REGISTERED MANDI HUB</div>
+            <div style="background:var(--oatmeal); padding:14px; border-radius:12px;">
+              <div style="color:var(--text-muted); font-size:11px;">REGISTERED MANDI HUB</div>
               <strong>Nanded Central Agricultural Hub</strong>
             </div>
-            <div style="background:var(--oatmeal); padding:16px; border-radius:12px;">
-              <div style="color:var(--text-muted); font-size:12px;">ESCROW BANK SETTLEMENT</div>
+            <div style="background:var(--oatmeal); padding:14px; border-radius:12px;">
+              <div style="color:var(--text-muted); font-size:11px;">ESCROW BANK SETTLEMENT</div>
               <strong>State Bank of India (A/C ***4892)</strong>
             </div>
           </div>
         </div>
 
-        <div style="display:flex; gap:16px;">
+        <div class="dash-actions-row" style="display:flex; gap:12px; flex-wrap:wrap;">
           <button class="btn-primary" onclick="navigate('sell')">+ Create New Sell Listing</button>
           <button class="btn-secondary" onclick="navigate('orders')">View Active Orders</button>
         </div>
@@ -1569,10 +1930,10 @@
     <div class="modal-box" style="max-width:480px;">
       <button class="modal-close" onclick="closeRoleModal()">✕</button>
       <h3 style="font-size:22px; margin-bottom:8px;">Switch Demo Persona</h3>
-      <p style="color:var(--text-muted); font-size:14px; margin-bottom:20px;">Experience the platform through different stakeholder perspectives:</p>
+      <p style="color:var(--text-muted); font-size:13px; margin-bottom:18px;">Experience the platform through different stakeholder perspectives:</p>
 
-      <div style="display:flex; flex-direction:column; gap:12px;">
-        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px;" onclick="selectPersona('farmer')">
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px; background:var(--oatmeal);" onclick="selectPersona('farmer')">
           <div style="font-size:24px;">👨‍🌾</div>
           <div>
             <strong>Ramesh Patil</strong>
@@ -1580,7 +1941,7 @@
           </div>
         </div>
 
-        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px;" onclick="selectPersona('buyer')">
+        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px; background:var(--oatmeal);" onclick="selectPersona('buyer')">
           <div style="font-size:24px;">🛒</div>
           <div>
             <strong>Savita Agro Traders</strong>
@@ -1588,7 +1949,7 @@
           </div>
         </div>
 
-        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px;" onclick="selectPersona('transporter')">
+        <div style="padding:14px; border:1px solid rgba(45,75,55,0.2); border-radius:14px; cursor:pointer; display:flex; align-items:center; gap:14px; background:var(--oatmeal);" onclick="selectPersona('transporter')">
           <div style="font-size:24px;">🚚</div>
           <div>
             <strong>Kisan Logistics Network</strong>
@@ -1602,22 +1963,22 @@
   <!-- Order Success Modal -->
   <div class="modal-overlay" id="orderSuccessModal">
     <div class="modal-box" style="text-align:center;">
-      <div style="width:72px; height:72px; border-radius:50%; background:#DCFCE7; color:#166534; font-size:36px; display:flex; align-items:center; justify-content:center; margin:0 auto 20px;">
+      <div style="width:64px; height:64px; border-radius:50%; background:#DCFCE7; color:#166534; font-size:32px; display:flex; align-items:center; justify-content:center; margin:0 auto 16px;">
         ✓
       </div>
-      <h2 style="font-size:30px; margin-bottom:8px;">Order Placed Successfully!</h2>
-      <p style="color:var(--text-muted); font-size:15px; margin-bottom:20px;" id="orderSuccessDesc">
+      <h2 style="font-size:26px; margin-bottom:8px;">Order Placed Successfully!</h2>
+      <p style="color:var(--text-muted); font-size:14px; margin-bottom:18px;" id="orderSuccessDesc">
         Your order has been recorded and assigned a delivery tracking identifier.
       </p>
 
-      <div style="background:var(--oatmeal); padding:16px; border-radius:14px; margin-bottom:24px; font-size:14px;">
-        <div>Order Reference ID: <strong id="successOrderId" style="color:var(--primary); font-family:monospace; font-size:16px;">MC-2026-9041</strong></div>
+      <div style="background:var(--oatmeal); padding:14px; border-radius:14px; margin-bottom:20px; font-size:13px;">
+        <div>Order Reference ID: <strong id="successOrderId" style="color:var(--primary); font-family:monospace; font-size:15px;">MC-2026-9041</strong></div>
         <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">SMS and WhatsApp updates dispatched to your registered number.</div>
       </div>
 
-      <div style="display:flex; justify-content:center; gap:12px;">
-        <button class="btn-primary" onclick="closeOrderModalAndGoToOrders()">View in Orders Dashboard</button>
-        <button class="btn-secondary" onclick="closeOrderSuccessModal()">Keep Shopping</button>
+      <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+        <button class="btn-primary" style="flex:1;" onclick="closeOrderModalAndGoToOrders()">View in Orders</button>
+        <button class="btn-secondary" style="flex:1;" onclick="closeOrderSuccessModal()">Keep Shopping</button>
       </div>
     </div>
   </div>
@@ -1631,11 +1992,11 @@
   <footer>
     <div class="footer-grid">
       <div class="footer-col">
-        <div style="display:flex; align-items:center; gap:10px; margin-bottom:14px;">
+        <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
           <div class="brand-icon" style="background:#FBBF24; color:var(--primary-dark);">🌾</div>
-          <span style="font-family:var(--font-serif); font-size:22px; font-weight:800; color:var(--white);">MilletConnect</span>
+          <span style="font-family:var(--font-serif); font-size:20px; font-weight:800; color:var(--white);">MilletConnect</span>
         </div>
-        <p style="font-size:14px; color:rgba(245,245,240,0.7); line-height:1.6;">
+        <p style="font-size:13px; color:rgba(245,245,240,0.7); line-height:1.6;">
           Digitally connecting farmers, buyers, logistics aggregators, and consumers in India's smart millet supply chain.
         </p>
       </div>
@@ -1666,7 +2027,7 @@
       <div class="footer-col">
         <h4>Government & Schemes</h4>
         <ul>
-          <li><a href="https://millets.gov.in" target="_blank" rel="noopener">National Millet Mission (IYM) ↗</a></li>
+          <li><a href="https://millets.gov.in" target="_blank" rel="noopener">National Millet Mission ↗</a></li>
           <li><a href="https://pmkisan.gov.in" target="_blank" rel="noopener">PM-KISAN Direct Benefit ↗</a></li>
           <li><a href="https://agmarknet.gov.in" target="_blank" rel="noopener">Agmarknet Mandi Prices ↗</a></li>
           <li><a href="https://enam.gov.in" target="_blank" rel="noopener">e-NAM Agricultural Portal ↗</a></li>
@@ -1679,7 +2040,7 @@
     </div>
   </footer>
 
-  <!-- SCRIPT LOGIC (Self-Contained Full Functional Prototype) -->
+  <!-- SCRIPT LOGIC (Self-Contained Full Functional Prototype with Mobile Navigation) -->
   <script>
     /* ================= INITIAL DATA & STATE ================= */
     const DEFAULT_PRODUCTS = [
@@ -1837,6 +2198,7 @@
     let currentCategory = "All";
     let currentOrderFilter = "all";
     let currentLanguage = "EN";
+    let isMobileMenuOpen = false;
 
     function saveState() {
       localStorage.setItem("mc_products", JSON.stringify(products));
@@ -1856,10 +2218,60 @@
       }
     }
 
+    /* ================= MOBILE MENU TOGGLE ================= */
+    function toggleMobileMenu() {
+      isMobileMenuOpen = !isMobileMenuOpen;
+      const dropdown = document.getElementById("mobileDropdown");
+      const icon = document.getElementById("hamburgerIcon");
+
+      if (isMobileMenuOpen) {
+        dropdown.classList.add("open");
+        icon.innerHTML = `
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        `;
+      } else {
+        dropdown.classList.remove("open");
+        icon.innerHTML = `
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        `;
+      }
+    }
+
+    function closeMobileMenu() {
+      isMobileMenuOpen = false;
+      const dropdown = document.getElementById("mobileDropdown");
+      const icon = document.getElementById("hamburgerIcon");
+      if (dropdown) dropdown.classList.remove("open");
+      if (icon) {
+        icon.innerHTML = `
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        `;
+      }
+    }
+
+    function mobileNavigate(pageId) {
+      closeMobileMenu();
+      navigate(pageId);
+    }
+
+    // Close mobile dropdown when clicking outside
+    document.addEventListener("click", (e) => {
+      const navContainer = document.querySelector(".nav-container");
+      if (isMobileMenuOpen && navContainer && !navContainer.contains(e.target)) {
+        closeMobileMenu();
+      }
+    });
+
     /* ================= NAVIGATION ================= */
     function navigate(pageId) {
       document.querySelectorAll(".page-section").forEach(sec => sec.classList.remove("active"));
       document.querySelectorAll(".nav-links a").forEach(a => a.classList.remove("active"));
+      document.querySelectorAll(".mobile-dropdown-menu a").forEach(a => a.classList.remove("active"));
 
       const target = document.getElementById(`page-${pageId}`);
       if (target) {
@@ -1867,8 +2279,11 @@
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
 
-      const navBtn = document.getElementById(`nav-${pageId}`);
-      if (navBtn) navBtn.classList.add("active");
+      const desktopNav = document.getElementById(`nav-${pageId}`);
+      if (desktopNav) desktopNav.classList.add("active");
+
+      const mobileNav = document.getElementById(`mnav-${pageId}`);
+      if (mobileNav) mobileNav.classList.add("active");
 
       if (pageId === "marketplace") renderProducts();
       if (pageId === "orders") renderOrders();
@@ -1915,10 +2330,10 @@
 
       if (list.length === 0) {
         grid.innerHTML = `
-          <div style="grid-column:1/-1; text-align:center; padding:48px; background:white; border-radius:16px;">
-            <div style="font-size:36px; margin-bottom:12px;">🌾</div>
-            <h3 style="font-size:20px; margin-bottom:8px;">No Millets Found</h3>
-            <p style="color:var(--text-muted); font-size:14px;">Try adjusting your search keywords or clear your category filter.</p>
+          <div style="grid-column:1/-1; text-align:center; padding:40px 20px; background:white; border-radius:16px;">
+            <div style="font-size:36px; margin-bottom:10px;">🌾</div>
+            <h3 style="font-size:19px; margin-bottom:6px;">No Millets Found</h3>
+            <p style="color:var(--text-muted); font-size:13px;">Try adjusting your search keywords or clear your category filter.</p>
           </div>
         `;
         return;
@@ -2039,17 +2454,17 @@
       // Setup Buy Page Header
       const header = document.getElementById("buyProductHeader");
       header.innerHTML = `
-        <div style="width:60px; height:60px; border-radius:12px; overflow:hidden; flex-shrink:0;">
+        <div style="width:52px; height:52px; border-radius:10px; overflow:hidden; flex-shrink:0;">
           <img src="${prod.image}" style="width:100%; height:100%; object-fit:cover;">
         </div>
-        <div style="flex:1;">
-          <div style="font-size:12px; font-weight:700; color:var(--secondary);">${prod.category}</div>
-          <div style="font-size:18px; font-weight:800; color:var(--primary-dark);">${prod.name}</div>
-          <div style="font-size:13px; color:var(--text-muted);">Sold by: <strong>${prod.farmer}</strong> (${prod.location})</div>
+        <div style="flex:1; min-width:180px;">
+          <div style="font-size:11px; font-weight:700; color:var(--secondary);">${prod.category}</div>
+          <div style="font-size:17px; font-weight:800; color:var(--primary-dark);">${prod.name}</div>
+          <div style="font-size:12px; color:var(--text-muted);">By: <strong>${prod.farmer}</strong> (${prod.location})</div>
         </div>
         <div style="text-align:right;">
-          <div style="font-size:22px; font-weight:800; color:var(--primary);">₹${prod.price} <span style="font-size:12px; font-weight:normal;">/ kg</span></div>
-          <div style="font-size:12px; color:var(--text-muted);">Stock: ${prod.volume} kg</div>
+          <div style="font-size:20px; font-weight:800; color:var(--primary);">₹${prod.price} <span style="font-size:11px; font-weight:normal;">/ kg</span></div>
+          <div style="font-size:11px; color:var(--text-muted);">Stock: ${prod.volume} kg</div>
         </div>
       `;
 
@@ -2173,10 +2588,10 @@
 
       if (list.length === 0) {
         container.innerHTML = `
-          <div style="text-align:center; padding:48px; background:white; border-radius:16px;">
+          <div style="text-align:center; padding:40px 20px; background:white; border-radius:16px;">
             <div style="font-size:36px; margin-bottom:8px;">📦</div>
-            <h3 style="font-size:20px; margin-bottom:6px;">No Orders in this view</h3>
-            <p style="color:var(--text-muted); font-size:14px;">Browse the marketplace to make a purchase or list harvest produce to sell.</p>
+            <h3 style="font-size:19px; margin-bottom:6px;">No Orders in this view</h3>
+            <p style="color:var(--text-muted); font-size:13px;">Browse the marketplace to make a purchase or list harvest produce to sell.</p>
           </div>
         `;
         return;
@@ -2191,52 +2606,54 @@
           <div class="order-card">
             <div class="order-header">
               <div>
-                <div style="display:flex; align-items:center; gap:10px; margin-bottom:4px;">
-                  <span class="order-tag ${isBuy ? 'tag-buy' : 'tag-sell'}">${isBuy ? 'Buyer Procurement' : 'Farmer Sell Listing'}</span>
-                  <strong style="font-size:14px; font-family:monospace; color:var(--primary);">${o.id}</strong>
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
+                  <span class="order-tag ${isBuy ? 'tag-buy' : 'tag-sell'}">${isBuy ? 'Buyer Purchase' : 'Farmer Listing'}</span>
+                  <strong style="font-size:13px; font-family:monospace; color:var(--primary);">${o.id}</strong>
                 </div>
-                <h3 style="font-size:22px;">${o.product_name}</h3>
-                <div style="font-size:13px; color:var(--text-muted); margin-top:2px;">
-                  Volume: <strong>${o.quantity_kg} kg</strong> &nbsp;|&nbsp; Rate: ₹${o.price_per_kg}/kg &nbsp;|&nbsp; Ordered on: ${o.created_at}
+                <h3 style="font-size:20px;">${o.product_name}</h3>
+                <div style="font-size:12px; color:var(--text-muted); margin-top:2px;">
+                  Volume: <strong>${o.quantity_kg} kg</strong> &nbsp;|&nbsp; Rate: ₹${o.price_per_kg}/kg &nbsp;|&nbsp; ${o.created_at}
                 </div>
               </div>
-              <div style="text-align:right;">
-                <div style="font-size:22px; font-weight:800; color:var(--primary-dark);">₹${(o.total_price || 0).toLocaleString("en-IN")}</div>
-                <span class="status-badge ${o.status === 'completed' ? 'status-delivered' : (o.status === 'dispatched' ? 'status-dispatched' : 'status-pending')}">
+              <div style="text-align:left;">
+                <div style="font-size:20px; font-weight:800; color:var(--primary-dark);">₹${(o.total_price || 0).toLocaleString("en-IN")}</div>
+                <span class="status-badge ${o.status === 'completed' ? 'status-delivered' : (o.status === 'dispatched' ? 'status-dispatched' : 'status-pending')}" style="margin-top:4px;">
                   ● ${o.status.toUpperCase()}
                 </span>
               </div>
             </div>
 
             <!-- Delivery Progress Milestone Bar -->
-            <div class="delivery-progress">
-              <div class="prog-step done">
-                <div class="prog-icon">✓</div>
-                <div class="prog-label">Order Placed</div>
-              </div>
-              <div class="prog-step ${isDispatched || isDelivered ? 'done' : 'current'}">
-                <div class="prog-icon">${isDispatched || isDelivered ? '✓' : '🌾'}</div>
-                <div class="prog-label">Harvest Packed</div>
-              </div>
-              <div class="prog-step ${isDelivered ? 'done' : (isDispatched ? 'current' : '')}">
-                <div class="prog-icon">${isDelivered ? '✓' : '🚚'}</div>
-                <div class="prog-label">In Transit</div>
-              </div>
-              <div class="prog-step ${isDelivered ? 'done' : ''}">
-                <div class="prog-icon">🏁</div>
-                <div class="prog-label">Delivered & Settled</div>
+            <div class="delivery-progress-wrap">
+              <div class="delivery-progress">
+                <div class="prog-step done">
+                  <div class="prog-icon">✓</div>
+                  <div class="prog-label">Placed</div>
+                </div>
+                <div class="prog-step ${isDispatched || isDelivered ? 'done' : 'current'}">
+                  <div class="prog-icon">${isDispatched || isDelivered ? '✓' : '🌾'}</div>
+                  <div class="prog-label">Packed</div>
+                </div>
+                <div class="prog-step ${isDelivered ? 'done' : (isDispatched ? 'current' : '')}">
+                  <div class="prog-icon">${isDelivered ? '✓' : '🚚'}</div>
+                  <div class="prog-label">In Transit</div>
+                </div>
+                <div class="prog-step ${isDelivered ? 'done' : ''}">
+                  <div class="prog-icon">🏁</div>
+                  <div class="prog-label">Delivered</div>
+                </div>
               </div>
             </div>
 
             <!-- Carrier and Actions Strip -->
-            <div style="display:flex; justify-content:space-between; align-items:center; background:var(--oatmeal); padding:12px 18px; border-radius:12px; font-size:13px; margin-top:16px;">
+            <div class="order-destination-strip" style="display:flex; justify-content:space-between; align-items:center; background:var(--oatmeal); padding:12px 14px; border-radius:12px; font-size:12px; margin-top:12px;">
               <div>
                 <strong>📍 Destination:</strong> ${o.delivery_address || 'Central Mandi Hub'} 
-                <span style="color:var(--text-muted); margin-left:12px;">(${o.carrier || 'Assigned Transporter'})</span>
+                <span style="color:var(--text-muted); margin-left:6px;">(${o.carrier || 'Assigned Transporter'})</span>
               </div>
-              <div style="display:flex; gap:8px;">
+              <div class="order-action-buttons" style="display:flex; gap:8px;">
                 <button class="btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="advanceOrderStatus('${o.id}')">
-                  ⚡ Advance Status Demo
+                  ⚡ Simulate Status
                 </button>
                 ${o.status !== 'completed' ? `
                   <button class="btn-secondary" style="padding:6px 12px; font-size:12px; color:#DC2626; border-color:rgba(220,38,38,0.2);" onclick="cancelOrder('${o.id}')">
@@ -2309,13 +2726,13 @@
       timeline.innerHTML = data.steps.map((s, idx) => `
         <div class="trace-step">
           <div class="trace-step-dot">${idx + 1}</div>
-          <div style="background:var(--oatmeal); padding:16px 20px; border-radius:14px; border:1px solid rgba(45,75,55,0.08);">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-              <strong style="font-size:15px; color:var(--primary);">${s.title}</strong>
-              <span style="font-size:12px; color:var(--text-muted); font-weight:700;">${s.date}</span>
+          <div style="background:var(--oatmeal); padding:14px 16px; border-radius:14px; border:1px solid rgba(45,75,55,0.08);">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px; flex-wrap:wrap; gap:4px;">
+              <strong style="font-size:14px; color:var(--primary);">${s.title}</strong>
+              <span style="font-size:11px; color:var(--text-muted); font-weight:700;">${s.date}</span>
             </div>
-            <div style="font-size:12px; color:var(--secondary); font-weight:700; margin-bottom:6px;">📍 ${s.location}</div>
-            <p style="font-size:13px; color:var(--text-muted); line-height:1.5;">${s.desc}</p>
+            <div style="font-size:11px; color:var(--secondary); font-weight:700; margin-bottom:6px;">📍 ${s.location}</div>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.5;">${s.desc}</p>
           </div>
         </div>
       `).join("");
@@ -2331,8 +2748,8 @@
         author: "Dr. Ananya Sharma (Nutritional Sciences)",
         date: "May 10, 2026",
         content: `
-          <p style="margin-bottom:14px;">Millets are ancient grains that have nourished civilizations across the Indian subcontinent for thousands of years. They are naturally gluten-free and possess a low Glycemic Index (GI), making them ideal for blood glucose management.</p>
-          <p style="margin-bottom:14px;">Unlike polished white rice, which loses its nutrient bran during milling, whole millets contain rich reserves of insoluble fiber, iron, calcium (especially Finger Millet / Ragi), and essential antioxidants that neutralize metabolic stress.</p>
+          <p style="margin-bottom:12px;">Millets are ancient grains that have nourished civilizations across the Indian subcontinent for thousands of years. They are naturally gluten-free and possess a low Glycemic Index (GI), making them ideal for blood glucose management.</p>
+          <p style="margin-bottom:12px;">Unlike polished white rice, which loses its nutrient bran during milling, whole millets contain rich reserves of insoluble fiber, iron, calcium (especially Finger Millet / Ragi), and essential antioxidants that neutralize metabolic stress.</p>
           <p>The Government of India declared millets as 'Nutri-Cereals' under the Shree Anna initiative to foster domestic consumption and counter nutritional deficiencies at a grassroots level.</p>
         `
       },
@@ -2341,8 +2758,8 @@
         author: "Prof. Rajesh Kumar (Agronomy Hub)",
         date: "May 08, 2026",
         content: `
-          <p style="margin-bottom:14px;">With climate change intensifying monsoonal fluctuations and depleting groundwater tables, traditional flood-irrigated crops like paddy place immense pressure on rural water resources.</p>
-          <p style="margin-bottom:14px;">Millets require less than one-third the water demanded by wheat and rice, comfortably surviving in semi-arid and rainfed areas. Their deep fibrous root systems prevent soil erosion and improve soil carbon sequestration.</p>
+          <p style="margin-bottom:12px;">With climate change intensifying monsoonal fluctuations and depleting groundwater tables, traditional flood-irrigated crops like paddy place immense pressure on rural water resources.</p>
+          <p style="margin-bottom:12px;">Millets require less than one-third the water demanded by wheat and rice, comfortably surviving in semi-arid and rainfed areas. Their deep fibrous root systems prevent soil erosion and improve soil carbon sequestration.</p>
           <p>By cultivating Shree Anna, farmers mitigate total crop loss risks and ensure stable earnings even during drought-prone seasons.</p>
         `
       },
@@ -2351,8 +2768,8 @@
         author: "Chef Meera (Culinary Innovations)",
         date: "May 05, 2026",
         content: `
-          <p style="margin-bottom:14px;">Cooking with millets does not require complicated techniques. Simple culinary substitutions can bring tremendous flavor and nutrition into daily meals:</p>
-          <ul style="padding-left:20px; line-height:1.8; margin-bottom:14px;">
+          <p style="margin-bottom:12px;">Cooking with millets does not require complicated techniques. Simple culinary substitutions can bring tremendous flavor and nutrition into daily meals:</p>
+          <ul style="padding-left:18px; line-height:1.7; margin-bottom:12px;">
             <li><strong>Ragi Malt & Porridge:</strong> High calcium breakfast drink suitable for children and elders.</li>
             <li><strong>Bajra & Methi Rotla:</strong> Iron-rich winter flatbread served with desi ghee and jaggery.</li>
             <li><strong>Foxtail Pulao:</strong> A fluffy, 1:1 substitute for basmati rice infused with seasonal vegetables.</li>
@@ -2366,10 +2783,10 @@
       const art = ARTICLES[id];
       if (!art) return;
       document.getElementById("articleModalContent").innerHTML = `
-        <span style="font-size:12px; font-weight:700; color:var(--secondary); text-transform:uppercase;">Insight Guide</span>
-        <h2 style="font-size:26px; margin:6px 0 10px;">${art.title}</h2>
-        <div style="font-size:12px; color:var(--text-muted); margin-bottom:20px;">By <strong>${art.author}</strong> • Published ${art.date}</div>
-        <div style="font-size:14px; line-height:1.7; color:var(--text);">${art.content}</div>
+        <span style="font-size:11px; font-weight:700; color:var(--secondary); text-transform:uppercase;">Insight Guide</span>
+        <h2 style="font-size:24px; margin:6px 0 10px;">${art.title}</h2>
+        <div style="font-size:12px; color:var(--text-muted); margin-bottom:16px;">By <strong>${art.author}</strong> • Published ${art.date}</div>
+        <div style="font-size:13px; line-height:1.7; color:var(--text);">${art.content}</div>
       `;
       document.getElementById("articleModal").classList.add("open");
     }
